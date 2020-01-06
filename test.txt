@@ -1,3 +1,0 @@
-From 'teddy'
-From 'teddy-test2'
-teddy-test2 second
