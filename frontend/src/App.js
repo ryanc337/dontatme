@@ -3,10 +3,10 @@ import { getAddress, getEmails } from './api'
 
 
 function App() {
-  const [ address, setAddress ] = useState()
+  const [address, setAddress ] = useState()
   const fetchAddress = async () => {
     try {
-      return await getAddress()
+      console.log(await getAddress())
     } catch (error) {
       console.log('Get Address function failed')
     }
@@ -14,13 +14,14 @@ function App() {
 
   const fetchEmails = async () => {
     try {
-      return await getEmails()
+      console.log(await getEmails())
     } catch (error) {
-      console.log('Get Emails Function Failed')
+      console.log('Get Address function failed')
     }
   }
 
-  console.log(fetchAddress(), fetchEmails())
+  fetchEmails()
+  fetchAddress()
 
   return (
     <div className="App">
