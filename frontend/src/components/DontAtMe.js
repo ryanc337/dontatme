@@ -4,7 +4,7 @@ import EmailClient from './emails/EmailClient';
 
 const DontAtMe = (props) => {  
   const { id } = useParams();
-
+  
   return (
     <div>
       <div>Email: {id}</div>

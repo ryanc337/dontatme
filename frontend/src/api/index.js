@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 export const getAddress = async () => {
-  const response = await axios.post('http://localhost:3001/addresses');
+  const response = await axios.post(process.env.REACT_APP_URL_ADDRESS);
   return response.data;
 };
 
 export const getEmails = async () => {
-  const response = await axios.get('http://localhost:3001/teddyisthegoat');
+  const response = await axios.get(process.env.REACT_APP_URL_EMAILS);
   return response.data;
 };
