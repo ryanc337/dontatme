@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default function EmailItemHeader (props) {
+const EmailItemHeader = (props) => {
   return (
     <nav className="EmailItemHeader">
-      <i>back</i>
-      <i>Delete</i>
       <img className="logo"></img>
     </nav>
-  )
+  );
 }
+
+export default EmailItemHeader;

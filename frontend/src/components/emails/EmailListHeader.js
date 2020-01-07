@@ -1,9 +1,11 @@
 import React from 'react';
 
-export default function EmailListHeader() {
+const EmailListHeader = () => {
   return(
     <div className="EmailListHeader">
       <h3>Your Inbox</h3>
     </div>
-  )
+  );
 }
+
+export default EmailListHeader

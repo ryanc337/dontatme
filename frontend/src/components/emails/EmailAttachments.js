@@ -1,10 +1,12 @@
 import React from 'react';
 import EmailAttachment from './EmailAttachment';
 
-export default function EmailAttachments(props) {
+const EmailAttachments = (props) => {
   return(
     <div className="EmailAttachments">
       <EmailAttachment />
     </div>
-  )
+  );
 }
+
+export default EmailAttachments;
