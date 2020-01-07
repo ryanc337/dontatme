@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route, 
-  Link
+  Link,
 } from 'react-router-dom';
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
           <DontAtMe />
         </Route>
         <Route path='/:id'>
-          <DontAtMe getEmails={true} />
+          <DontAtMe />
         </Route>
       </Switch>
     </Router>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getAddress, getEmails } from '../api/index';
 import EmailClient from './emails/EmailClient';
+import { useParams } from 'react-router-dom';
+
+
 
 export default function DontAtMe(props) {
   const [address, setAddress ] = useState({
@@ -36,12 +39,18 @@ export default function DontAtMe(props) {
       console.log('Get Address function failed')
     }
   }
+  
   const fetchEmails = async () => {
     try {
       console.log(await getEmails())
     } catch (error) {
       console.log('Get Address function failed')
     }
+  }
+
+  const PostParams = () => {
+    let { id } = useParams();
+    return(<div>{id}</div>)
   }
 
   return(
@@ -58,7 +67,7 @@ export default function DontAtMe(props) {
           />)
         })
       }
-      {props.getEmails && <h1>Get Emails</h1>}
+      <PostParams />
     </div>
   )
 
