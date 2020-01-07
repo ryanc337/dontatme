@@ -1,7 +1,7 @@
 class AddressesController < ApplicationController
   def create
     @address = Address.new(
-      address: (Faker::Name.first_name + '.' + Faker::Name.last_name).downcase + '.' + SecureRandom.hex(3)
+      address: (Faker::Name.first_name + '-' + Faker::Name.last_name).downcase + '-' + SecureRandom.hex(3)
     )
 
     if @address.save
