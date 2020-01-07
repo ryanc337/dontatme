@@ -1,18 +1,16 @@
 import React from 'react';
-import EmailClient from './emails/EmailClient';
 import { useParams } from 'react-router-dom';
+import EmailClient from './emails/EmailClient';
 
-export default function DontAtMe(props) {
-  const PostParams = () => {
-    let { id } = useParams();
-    return(<div>{id}</div>)
-  }
+const DontAtMe = (props) => {  
+  const { id } = useParams();
 
-  return(
+  return (
     <div>
+      <div>Email: {id}</div>
       <EmailClient />
-      <PostParams />
     </div>
-  )
+  );
+};
 
-}
+export default DontAtMe;
