@@ -12,7 +12,7 @@ const DontAtMe = (props) => {
     const fetchAddress = async () => {
       try {
         const fetchedAddress = await getAddress();
-        setAddress(fetchedAddress.email);
+        setAddress(fetchedAddress.address);
       } catch (error) {
         console.log('Get Address function failed');
       }
