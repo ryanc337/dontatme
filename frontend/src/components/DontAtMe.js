@@ -24,7 +24,7 @@ export default function DontAtMe(props) {
     from: "Guccimane",
     subject: "Lets go for a walk",
     sent_at: "2009-03-27 23:53:38 UTC",
-    has_attachments: true,
+    has_attachments: false,
     storage_url: 'www.amazon.com'
   }
 ])
@@ -58,6 +58,7 @@ export default function DontAtMe(props) {
           />)
         })
       }
+      {props.getEmails && <h1>Get Emails</h1>}
     </div>
   )
 

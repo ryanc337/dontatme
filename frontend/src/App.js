@@ -1,12 +1,24 @@
 import React from 'react';
 import DontAtMe from './components/DontAtMe';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route, 
+  Link
+} from 'react-router-dom';
 
 function App() {
-
   return (
-    <div className="App">
-      <DontAtMe />
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path='/'>
+          <DontAtMe />
+        </Route>
+        <Route path='/:id'>
+          <DontAtMe getEmails={true} />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
