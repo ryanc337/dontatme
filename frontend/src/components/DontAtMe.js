@@ -3,8 +3,6 @@ import { getAddress, getEmails } from '../api/index';
 import EmailClient from './emails/EmailClient';
 import { useParams } from 'react-router-dom';
 
-
-
 export default function DontAtMe(props) {
   const [address, setAddress ] = useState({
     address: "teddyleung@google.com"
@@ -39,7 +37,7 @@ export default function DontAtMe(props) {
       console.log('Get Address function failed')
     }
   }
-  
+
   const fetchEmails = async () => {
     try {
       console.log(await getEmails())
