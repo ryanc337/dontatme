@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function useMode(initial) {
+export function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
@@ -24,4 +24,3 @@ export function useMode(initial) {
     back
   };
 };
-

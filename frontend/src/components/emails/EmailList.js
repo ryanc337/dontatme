@@ -6,7 +6,21 @@ export default function EmailList(props) {
   return (
     <div className="EmailList">
       <EmailListHeader />
-      <EmailListItem body={props.body} from={props.from} subject={props.subject} timeSent={props.timeSent} attachments={props.attachments}/>
+      {
+        props.emails.map((item) => {
+          return (
+          <EmailListItem
+          onClick={props.onClick}
+          key={item.id}
+          id={item.id}
+          body={item.body}
+          from={item.from}
+          subject={item.subject}
+          sent_at={item.sent_at}
+          has_attachments={item.has_attachments}
+          />)
+        })
+      }
     </div>
   )
 }
