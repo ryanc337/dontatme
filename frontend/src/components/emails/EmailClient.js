@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // TODO: remove useState
 import EmailList from './EmailList'
 import EmailItem from './EmailItem';
-import { getAddress, getEmails } from '../../api/index';
+import { getAddress, getEmails } from '../../api/index'; // TODO: move up to DontAtMe
 
 
 export default function EmailClient(props) {
   const [address, setAddress ] = useState({
     address: "teddyleung@google.com"
-  })
+  }) 
+  // TODO: Move this state up to DontAtMe
+  // Convert state to STRING instead of object with key
   const [ emails, setEmails ] = useState([
   {
     id: 1, 
-    address_id: 1,
+    address_id: 1, // TODO remove address_id
     body: "Hello from the mock server",
     from: "Pee Wee Longway",
     subject: "Lets have coffee on friday",
@@ -31,6 +33,7 @@ export default function EmailClient(props) {
   }
 ])
   
+// TODO: move fetching functions to DontAtMe
   const fetchAddress = async () => {
     try {
       console.log(await getAddress())
@@ -47,6 +50,8 @@ export default function EmailClient(props) {
     }
   }
 
+  // TODO: "state" should be called focusEmailId
+  // Also, make the state a STRING instead of object
   const [ state, setState ] = useState({
     email_id: 1
   })
@@ -54,12 +59,12 @@ export default function EmailClient(props) {
   const handleClick = (e, data) => {
     setState({ 
       email_id: e.target.parentElement.id 
-      }) 
+     }) 
   }
 
   return (
     <div className="EmailClient">
-      <EmailList onClick={(e) => handleClick(e)} emails={emails} />
+      <EmailList onClick={(e) => handleClick(e)} emails={emails} /> // TODO pass setFocusEmailId function instead of calling one
     </div>
   )
 }
