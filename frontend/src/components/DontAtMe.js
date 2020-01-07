@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAddress, getEmails } from '../api/index';
 import EmailClient from './emails/EmailClient';
+import EmailItem from './emails/EmailItem'
 import { useParams } from 'react-router-dom';
 
 export default function DontAtMe(props) {
@@ -53,6 +54,7 @@ export default function DontAtMe(props) {
 
   return(
     <div>
+      <EmailItem />
       {
         emails.map((item) => {
         return (<EmailClient 
