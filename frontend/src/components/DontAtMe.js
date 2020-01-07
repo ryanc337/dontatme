@@ -3,10 +3,7 @@ import { useParams } from 'react-router-dom';
 import EmailClient from './emails/EmailClient';
 import { getAddress, getEmails } from '../api/index';
 
-const DontAtMe = (props) => {
-  // TODO: "state" should be called focusEmailId
-  // Also, make the state a STRING instead of object
-  // TODO pass setFocusEmailId function instead of calling one  
+const DontAtMe = (props) => { 
   const [ address, setAddress ] = useState("");
   const [ emails, setEmails ] = useState([]);
   const { id } = useParams();
