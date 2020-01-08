@@ -1,7 +1,6 @@
 import React from 'react';
 import EmailListItem from './EmailListItem';
 import EmailListHeader from './EmailListHeader';
-import Email from './Email';
 
 const EmailList = ({ allEmails, setFocusPanel }) => {
   

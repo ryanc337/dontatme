@@ -8,4 +8,4 @@ const EmailListHeader = () => {
   );
 }
 
-export default EmailListHeader
+export default EmailListHeader;

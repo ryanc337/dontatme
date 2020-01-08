@@ -12,8 +12,8 @@ export const getEmails = async () => {
 
 export const getEmailUrl = async () => {
   const response = await axios.get(process.env.REACT_APP_URL_EMAIL);
-  const EmailUrl = response.data.storage_url;
-  return EmailUrl;
+  const emailUrl = response.data.storage_url;
+  return emailUrl;
 };
 
 export const getRawEmail = async () => {
@@ -21,4 +21,4 @@ export const getRawEmail = async () => {
   const response = await axios.get(url);
   const rawEmail = response.data;
   return rawEmail;
-}
+};
