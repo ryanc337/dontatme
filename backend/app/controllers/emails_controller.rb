@@ -1,9 +1,19 @@
 class EmailsController < ApplicationController
-  before_action :get_address, only: [:index, :destroy]
+  before_action :get_address, only: [:index, :create, :destroy]
   
   def index
     @emails = @address.emails
     render :index
+  end
+
+  def create
+    @email = @address.emails.new(email_params)
+
+    if @email.save
+      render json: { status: 200 }
+    else
+      render json: { error: 'Failed to create email' }, status: 400
+    end
   end
 
   def destroy
@@ -22,6 +32,10 @@ class EmailsController < ApplicationController
   end
 
   private
+
+  def email_params
+    params.require(:email).permit(:body, :from, :subject, :sent_at, :has_attachments, :storage_url)
+  end
 
   def get_address
     @address = Address.find_by(address: params[:address_id])
