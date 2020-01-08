@@ -1,29 +1,29 @@
 import axios from 'axios';
 
 
-// TODO: Only want one env var REACT_APP_URL="http://localhost:3000"
+// TODO: Only want one env var REACT_APP_URL=http://localhost:3001
 
 export const getAddress = async () => {
-  const response = await axios.post(process.env.REACT_APP_URL_ADDRESS);
+  const response = await axios.post(process.env.REACT_APP_URL + '/addresses');
   return response.data;
 };
-
-export const getEmails = async () => {
-  const response = await axios.get(process.env.REACT_APP_URL_EMAILS);
+//pass in adress to get emails
+export const getEmails = async (addressId) => {
+  const response = await axios.get(process.env.REACT_APP_URL + `/addresses/${addressId}/emails`);
   return response.data;
 };
 
 // TODO
 // getEmailUrl(addressId, id)
-export const getEmailUrl = async () => {
-  const response = await axios.get(process.env.REACT_APP_URL_EMAIL + `/addresses/${addressId}/emails/${id}`);
+export const getEmailUrl = async (addressId, id) => {
+  const response = await axios.get(process.env.REACT_APP_URL + `/addresses/${addressId}/emails/${id}`);
   return response.data.storage_url;
 };
 
 // TODO
 // getRawEmail(addressId, id)
-export const getRawEmail = async () => {
-  const url = await getEmailUrl();
+export const getRawEmail = async (addressId, id) => {
+  const url = await getEmailUrl(addressId, id);
   const response = await axios.get(url);
   return response.data;
 };

@@ -1,8 +1,9 @@
 import React from 'react';
 
-const EmailBody = (props) => {
+const EmailBody = ({ html }) => {
   return(
     <div className = "Emailbody">
+<div>{html}</div>
     </div>
   );
 }

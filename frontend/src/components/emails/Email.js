@@ -2,12 +2,13 @@ import React from 'react';
 import EmailBody from './EmailBody';
 import EmailAttachments from './EmailAttachments';
 
-const Email = (props) => {
+const Email = ({ attachments, html }) => {
   return(
     <div className="Email">
-      <EmailBody />
-      {/* TODO: make attachments conditionally render */}
-      <EmailAttachments />
+      <EmailBody 
+      html={html}
+      />
+      {attachments && <EmailAttachments attachments={attachments}/>}
     </div>
   );
 }

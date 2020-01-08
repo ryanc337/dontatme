@@ -1,11 +1,14 @@
 import React from 'react';
 import EmailAttachment from './EmailAttachment';
 
-const EmailAttachments = (props) => {
+const EmailAttachments = ({ attachments }) => {
   return(
     <div className="EmailAttachments">
-      {/* TODO: this should be a map */}
-      <EmailAttachment />
+      {
+        attachments.map((attachment) => {
+          return(<EmailAttachment attachment={attachment}/>)
+        })
+      }
     </div>
   );
 }
