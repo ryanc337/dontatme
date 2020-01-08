@@ -1,13 +1,13 @@
 import React from 'react';
 
-const EmailListItem = ({ email, setFocusEmailId, setFocusPanel }) => {
-  const updateFocusPanelAndEmail = () => {
-    setFocusPanel('email')
-    setFocusEmailId(email.id)
+const EmailListItem = ({ parseEmail, email, setFocusPanel }) => {
+  const handleClick = () => {
+    setFocusPanel('email');
+    parseEmail()
   }
-  
+
   return (
-    <div className="EmailListItem" onClick={() => updateFocusPanelAndEmail()}>
+    <div className="EmailListItem" onClick={() => handleClick()}>
       <h1>{email.from}</h1>
       <p>{email.email_body}</p>
       <p>{email.subject}</p>
