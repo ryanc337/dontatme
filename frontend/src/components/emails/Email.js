@@ -2,11 +2,11 @@ import React from 'react';
 import EmailBody from './EmailBody';
 import EmailAttachments from './EmailAttachments';
 
-const Email = ({ renderEmail }) => {
+const Email = (props) => {
   return(
     <div className="Email">
-      <EmailBody renderEmail={renderEmail} />
-      {renderEmail.attachments && <EmailAttachments />}
+      <EmailBody />
+      <EmailAttachments />
     </div>
   );
 }

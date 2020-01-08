@@ -1,9 +1,8 @@
 import React from 'react';
 
-const EmailListItem = ({ parseEmail, email, setFocusPanel }) => {
+const EmailListItem = ({ email, setFocusPanel }) => {
   const handleClick = () => {
     setFocusPanel('email');
-    parseEmail()
   }
 
   return (

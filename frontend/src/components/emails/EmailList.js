@@ -3,13 +3,13 @@ import EmailListItem from './EmailListItem';
 import EmailListHeader from './EmailListHeader';
 import Email from './Email';
 
-const EmailList = ({ parseEmail, allEmails, setFocusPanel }) => {
+const EmailList = ({ allEmails, setFocusPanel }) => {
   
   return (
     <div className="EmailList">
       <EmailListHeader />
       {allEmails.map((email) => {
-        return <EmailListItem parseEmail={parseEmail} setFocusPanel={setFocusPanel}  key={email.id} email={email}/>
+        return <EmailListItem setFocusPanel={setFocusPanel}  key={email.id} email={email}/>
       })
     }
     </div>

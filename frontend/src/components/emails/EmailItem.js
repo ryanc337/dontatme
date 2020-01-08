@@ -2,11 +2,11 @@ import React from 'react';
 import Email from './Email';
 import EmailItemHeader from './EmailItemHeader';
 
-const EmailItem = ({ renderEmail, setFocusPanel }) => {
+const EmailItem = ({ setFocusPanel }) => {
   return(
     <div className="EmailItem">
       <EmailItemHeader setFocusPanel={setFocusPanel} />
-      <Email renderEmail={renderEmail} />
+      <Email />
     </div>
   );
 }

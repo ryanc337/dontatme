@@ -7,23 +7,17 @@ const simpleParser = require('mailparser').simpleParser;
 const DontAtMe = (props) => { 
   const [ address, setAddress ] = useState("");
   const [ allEmails, setAllEmails ] = useState([]);
-  const [ renderEmail, setRenderEmail ] = useState([]);
   const { id } = useParams();
 
-  const parseEmail = async () => {
-    let rawEmail = await getRawEmail();
-    let parsedEmail = await simpleParser(rawEmail);
-    const formattedParsedEmail = {
-      body: parsedEmail.text,
-      attachments: parsedEmail.attachments,
-      address_from: parsedEmail.from.value[0].address,
-      name_from: parsedEmail.from.value[0].name,
-      date: parsedEmail.date,
-    };
-    setRenderEmail(formattedParsedEmail);
-    console.log(formattedParsedEmail);
-    return formattedParsedEmail;
-  }
+  useEffect(() => {
+    const parseEmail = async () => {
+      let rawEmail = await getRawEmail();
+      let parsedEmail = await simpleParser(rawEmail);
+      console.log(parsedEmail);
+      return parsedEmail;
+    }
+    parseEmail();
+  }, []);
 
   useEffect(() => {
     const fetchAddress = async () => {
@@ -35,7 +29,7 @@ const DontAtMe = (props) => {
       }
     }
     fetchAddress();
-  }, [])
+  }, []);
 
   useEffect(() => {
     const fetchEmails = async () => {
@@ -47,12 +41,12 @@ const DontAtMe = (props) => {
       }
     }
     fetchEmails();
-  }, [])
+  }, []);
   
   return (
     <div>
       <div>Email: {id}</div>
-      <EmailClient parseEmail={parseEmail} allEmails={allEmails} renderEmail={renderEmail}/>
+      <EmailClient allEmails={allEmails} />
     </div>
   );
 };
