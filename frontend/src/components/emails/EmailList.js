@@ -8,9 +8,8 @@ const EmailList = ({ allEmails, setFocusPanel }) => {
     <div className="EmailList">
       <EmailListHeader />
       {allEmails.map((email) => {
-        return <EmailListItem setFocusPanel={setFocusPanel}  key={email.id} email={email}/>
-      })
-    }
+        return <EmailListItem setFocusPanel={setFocusPanel} key={email.id} email={email} />
+      })}
     </div>
   );
 }

@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { simpleParser } from 'mailparser';
 import { getAddress, getEmails, getRawEmail } from '../api/index';
 import EmailClient from './emails/EmailClient';
-const simpleParser = require('mailparser').simpleParser;
 
 const DontAtMe = (props) => { 
   const [ address, setAddress ] = useState("");
   const [ allEmails, setAllEmails ] = useState([]);
   const { id } = useParams();
 
+  // TODO: add dependency on focusedEmail state
+  // TODO: add try catch
+  // TODO: this useEffect should be in EmailClient
   useEffect(() => {
     const parseEmail = async () => {
-      let rawEmail = await getRawEmail();
-      let parsedEmail = await simpleParser(rawEmail);
+      const rawEmail = await getRawEmail();
+      const parsedEmail = await simpleParser(rawEmail);
       console.log(parsedEmail);
       return parsedEmail;
     }
     parseEmail();
   }, []);
 
+
+  // TODO: the below 2 useEffects should be just one useEffect. They should conditionally run based on id from useParams
   useEffect(() => {
     const fetchAddress = async () => {
       try {
