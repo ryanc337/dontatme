@@ -10,7 +10,7 @@ const EmailClient = ({ emailData }) => {
 
   return (
     <div className="EmailClient">
-      {focusPanel === 'list' && <EmailList setFocusPanel={setFocusPanel} setFocusEmailId={setFocusEmailId} emailData={emailData}/>}
+      {<EmailList className={`show-${focusPanel === "list" ? "list" : 'email'}`} setFocusPanel={setFocusPanel} setFocusEmailId={setFocusEmailId} emailData={emailData}/>}
       {focusEmailId === null ? <div>Empty Email</div> : <EmailItem setFocusPanel={setFocusPanel} email={email}/>}
     </div>
   );
