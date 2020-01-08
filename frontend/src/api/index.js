@@ -22,5 +22,3 @@ export const getRawEmail = async () => {
   const rawEmail = response.data;
   return rawEmail;
 }
-
-
