@@ -21,6 +21,7 @@ const DontAtMe = (props) => {
       date: parsedEmail.date,
     };
     setRenderEmail(formattedParsedEmail);
+    console.log(formattedParsedEmail);
     return formattedParsedEmail;
   }
 
