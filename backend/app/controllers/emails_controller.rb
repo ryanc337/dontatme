@@ -1,9 +1,20 @@
 class EmailsController < ApplicationController
-  before_action :get_address, only: [:index, :create, :destroy]
+  before_action :get_address, only: [:index, :show, :create, :destroy]
+  before_action :get_email, only: [:show, :destroy]
   
   def index
     @emails = @address.emails
     render :index
+  end
+
+  def show
+    bucket = Rails.application.credentials.aws[:bucket]
+    key = @email.storage_url
+
+    obj = Aws::S3::Object.new(bucket, key)
+    signed_url = obj.presigned_url(:get, expires_in: 900)
+
+    render json: { storage_url: signed_url }
   end
 
   def create
@@ -17,13 +28,6 @@ class EmailsController < ApplicationController
   end
 
   def destroy
-    @email = Email.find(params[:id])
-
-    if @email.address != @address
-      render json: { error: 'No such email' }, status: 400
-      return
-    end
-
     if @email.destroy
       render json: { message: 'Deleted' }
     else
@@ -42,6 +46,14 @@ class EmailsController < ApplicationController
     
     if !@address
       render json: { error: 'Email address does not exist.' }, status: 400
+    end
+  end
+
+  def get_email
+    @email = Email.find(params[:id])
+
+    if @email.address != @address
+      render json: { error: 'No such email' }, status: 400
     end
   end
 end
