@@ -8,7 +8,6 @@ addresses = Address.all
 
 100.times do
   address = addresses.sample
-
   address.emails.create(
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
     from: "[{\"address\":\"teddy.ph.leung@gmail.com\",\"name\":\"Teddy Leung\"}]",

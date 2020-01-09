@@ -17,11 +17,11 @@ const DontAtMe = (props) => {
     color: 'red',
     message: ''
   });
- 
+ console.log(allEmails)
   useEffect(() => {
     const fetchEmails = async (id) => {
       const fetchedEmails = await getEmails(id);
-      setAllEmails(fetchedEmails);
+      setAllEmails(fetchedEmails.emails);
     };
 
     const fetchAddress = async () => {
@@ -54,7 +54,7 @@ const DontAtMe = (props) => {
   const closeAlert = () => setAlert({ ...alert, show: false });
 
   return (
-    <div>
+    <div className="everything">
       {alert.show && <Alert alert={alert} closeAlert={closeAlert}/>}
       <Header />
       <Hero address={address}/>

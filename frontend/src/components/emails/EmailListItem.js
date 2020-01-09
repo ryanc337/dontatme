@@ -3,6 +3,8 @@ import moment from 'moment';
 
 const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
   const { from, sent_at, subject, body, has_attachments, id } = email;
+  const senderParse = JSON.parse(from);
+  const senderName = senderParse[0]['name'];
   const handleClick = (id) => {
     setFocusId(id);
     setFocusPanel('email');
@@ -10,7 +12,7 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
 
   return (
     <div className={`EmailListItem ${focusId === id ? 'highlight-email-list-item': 'email-list-item'}`} onClick={() => handleClick(email.id)}>
-      <h1>{from}</h1>
+      <h1>{senderName}</h1>
       <p>{body}</p>
       <p>{subject}</p>
       {/* TODO: change this date function. It's brittle. */}
