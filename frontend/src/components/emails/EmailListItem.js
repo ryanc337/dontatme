@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
   const { from, sent_at, subject, body, has_attachments, id } = email;
@@ -12,7 +13,7 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
       <h1>{from}</h1>
       <p>{body}</p>
       <p>{subject}</p>
-      <p>{sent_at}</p>
+      <p>{moment(sent_at).calendar().slice(13)}</p>
       {has_attachments && <p>paperclip</p>}
     </div>
   );

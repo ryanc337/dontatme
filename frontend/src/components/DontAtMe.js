@@ -57,7 +57,7 @@ const DontAtMe = (props) => {
       show: false
     })
   }
-  console.log(alert.show);
+
   return (
     <div>
       {alert.show && <Alert alert={alert} closeAlert={closeAlert}/>}
