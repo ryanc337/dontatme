@@ -23,7 +23,10 @@ export const getEmailUrl = async (addressId, id) => {
 // TODO
 // getRawEmail(addressId, id)
 export const getRawEmail = async (addressId, id) => {
+  console.log('before getEmailUrl', Date.now())
   const url = await getEmailUrl(addressId, id);
+  console.log('after getEmailUrl', Date.now())
   const response = await axios.get(url);
+  console.log('after s3 fetch', Date.now())
   return response.data;
 };

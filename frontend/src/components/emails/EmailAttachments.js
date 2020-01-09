@@ -5,8 +5,8 @@ const EmailAttachments = ({ attachments }) => {
   return(
     <div className="EmailAttachments">
       {
-        attachments.map((attachment) => {
-          return(<EmailAttachment attachment={attachment}/>)
+        attachments.map((attachment, index) => {
+          return(<EmailAttachment key={index} attachment={attachment}/>)
         })
       }
     </div>
