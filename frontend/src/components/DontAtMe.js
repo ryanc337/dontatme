@@ -4,6 +4,8 @@ import { getAddress, getEmails } from '../api/index';
 import Alert from './layout/Alert'
 import EmailClient from './emails/EmailClient';
 import Hero from './landing/Hero';
+import Header from './landing/Header'
+import Footer from './landing/Footer';
 
 const DontAtMe = (props) => { 
   const [ address, setAddress ] = useState("");
@@ -58,6 +60,8 @@ const DontAtMe = (props) => {
   console.log(alert.show);
   return (
     <div>
+      {alert.show && <Alert alert={alert} closeAlert={closeAlert}/>}
+      <Header />
       <Hero address={address}/>
       <EmailClient address={address} 
       allEmails={allEmails} 
@@ -65,7 +69,7 @@ const DontAtMe = (props) => {
       setIsLoading={setIsLoading}
       isLoading={isLoading}
       />
-      {alert.show && <Alert alert={alert} closeAlert={closeAlert}/>}
+      <Footer />
     </div>
   );
 };
