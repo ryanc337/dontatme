@@ -7,8 +7,6 @@ import Hero from './landing/Hero';
 import Header from './landing/Header'
 import Footer from './landing/Footer';
 
-
-
 const DontAtMe = (props) => { 
   const { id } = useParams();
   const [ address, setAddress ] = useState(id || '');
@@ -19,11 +17,11 @@ const DontAtMe = (props) => {
     color: 'red',
     message: ''
   });
- 
+ console.log(allEmails)
   useEffect(() => {
     const fetchEmails = async (id) => {
       const fetchedEmails = await getEmails(id);
-      setAllEmails(fetchedEmails);
+      setAllEmails(fetchedEmails.emails);
     };
 
     const fetchAddress = async () => {

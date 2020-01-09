@@ -16,7 +16,7 @@ const Hero = ({ address }) => {
   <main>
     <div className="Hero-Banner">
       <h1>Practice safe emails... use a burner</h1>
-      <input value={address} />
+      <input value={address} readOnly/>
       <button onClick={() => copyToClipboard(address)}>Copy</button>
     </div> 
   </main>
