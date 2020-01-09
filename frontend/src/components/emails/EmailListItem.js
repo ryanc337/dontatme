@@ -1,9 +1,9 @@
 import React from 'react';
 
-const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId}) => {
+const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
   const { from, sent_at, subject, body, has_attachments, id } = email;
   const handleClick = (id) => {
-    setFocusId(id)
+    setFocusId(id);
     setFocusPanel('email');
   }
 

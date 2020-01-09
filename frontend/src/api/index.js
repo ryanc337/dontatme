@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 // TODO: Only want one env var REACT_APP_URL=http://localhost:3001
 
 export const getAddress = async () => {
@@ -13,6 +12,10 @@ export const getEmails = async (addressId) => {
   return response.data;
 };
 
+export const deleteEmail = async (addressId, id) => {
+  const response = await axios.delete(process.env.REACT_APP_URL + `/addresses/${addressId}/emails/${id}`)
+  return response.data;
+}
 // TODO
 // getEmailUrl(addressId, id)
 export const getEmailUrl = async (addressId, id) => {
