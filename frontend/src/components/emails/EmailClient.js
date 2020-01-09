@@ -31,7 +31,6 @@ const EmailClient = ({ allEmails, address, setAlert, setIsLoading, isLoading }) 
     const parseEmail = async (addressId, id) => {
       try {
         setIsLoading(true);
-        if (addressId, id) {
           const rawEmail = await getRawEmail(addressId, id);
           const parsedEmail = await simpleParser(rawEmail);
           setFetchedEmails({
@@ -39,7 +38,7 @@ const EmailClient = ({ allEmails, address, setAlert, setIsLoading, isLoading }) 
             [id]: parsedEmail
           })
           return parsedEmail;
-        }
+        
       } catch (error) {
         setAlert({
           ...alert,

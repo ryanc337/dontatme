@@ -7,6 +7,8 @@ import Hero from './landing/Hero';
 import Header from './landing/Header'
 import Footer from './landing/Footer';
 
+
+
 const DontAtMe = (props) => { 
   const [ address, setAddress ] = useState("");
   const [ allEmails, setAllEmails ] = useState([]);
@@ -60,7 +62,7 @@ const DontAtMe = (props) => {
   }
 
   return (
-    <div>
+    <div className="everything">
       {alert.show && <Alert alert={alert} closeAlert={closeAlert}/>}
       <Header />
       <Hero address={address}/>
