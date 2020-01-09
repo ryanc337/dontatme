@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   resources :addresses, only: [:create] do
     resources :emails, only: [:index, :show, :create, :destroy]
   end
+
+  mount ActionCable.server => '/cable'
 end

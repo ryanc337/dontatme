@@ -18,9 +18,14 @@ class EmailsController < ApplicationController
   end
 
   def create
-    @email = @address.emails.new(email_params)
+    email = @address.emails.new(email_params)
 
-    if @email.save
+    if email.save
+      EmailsChannel.broadcast_to(
+        @address,
+        email: email.serialize
+      )
+
       render json: { status: 200 }
     else
       render json: { error: 'Failed to create email' }, status: 400
