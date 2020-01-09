@@ -25,13 +25,14 @@ const DontAtMe = (props) => {
         setAddress(fetchedAddress.address);
       } catch (error) {
         setAlert({
+          ...alert,
           show: true,
-          color: 'red',
           message: 'Could not retreive an email address from our host.'
         })
         console.log('Get Address function failed');
       }
     }
+    
     const fetchEmails = async (id) => {
       try {
         setIsLoading(true);
@@ -39,8 +40,8 @@ const DontAtMe = (props) => {
         setAllEmails(fetchedEmails);
       } catch (error) {
         setAlert({
+          ...alert,
           show: true,
-          color: 'red',
           message: 'Could not retreive emails from sender.'
         })
         console.log('Get Emails function failed');

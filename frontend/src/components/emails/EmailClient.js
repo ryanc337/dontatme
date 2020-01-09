@@ -15,7 +15,7 @@ const EmailClient = ({ allEmails, address, setAlert, setIsLoading, isLoading }) 
     try {
       setIsLoading(true);
       const deletedEmail = await deleteEmail(address, focusId);
-      console.log(deletedEmail)
+      setFetchedEmails(delete fetchedEmails[focusId])
       return deletedEmail;
     } catch (error) {
       setAlert({
@@ -34,7 +34,6 @@ const EmailClient = ({ allEmails, address, setAlert, setIsLoading, isLoading }) 
         if (addressId, id) {
           const rawEmail = await getRawEmail(addressId, id);
           const parsedEmail = await simpleParser(rawEmail);
-          console.log('after emailparse', Date.now())
           setFetchedEmails({
             ...fetchedEmails,
             [id]: parsedEmail
@@ -42,12 +41,12 @@ const EmailClient = ({ allEmails, address, setAlert, setIsLoading, isLoading }) 
           return parsedEmail;
         }
       } catch (error) {
-        console.log(error)
         setAlert({
+          ...alert,
           show: true,
-          color: 'red',
           message: 'Could not display the email sent.'
         })
+        console.log(error)
       } finally {
         setIsLoading(false);
       }

@@ -4,7 +4,6 @@ import EmailBody from './EmailBody';
 import EmailAttachments from './EmailAttachments';
 
 const Email = ({ attachments, html, from, date }) => {
-  console.log(date)
   return(
     <div className="Email">
       <EmailBody 
