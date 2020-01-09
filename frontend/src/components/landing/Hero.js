@@ -1,6 +1,8 @@
 import React from 'react'
 
 const Hero = ({ address }) => {
+
+  // TODO: Change this implementation
   const copyToClipboard = str => {
     const el = document.createElement('input');
     el.value = str;

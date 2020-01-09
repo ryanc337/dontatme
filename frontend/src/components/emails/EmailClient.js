@@ -15,46 +15,46 @@ const EmailClient = ({ allEmails, address, setAlert, setIsLoading, isLoading }) 
     try {
       setIsLoading(true);
       const deletedEmail = await deleteEmail(address, focusId);
-      setFetchedEmails(delete fetchedEmails[focusId])
-      return deletedEmail;
+      deletedEmail && setFetchedEmails(prevState => {
+        const { focusId, ...rest } = prevState;
+        return rest;
+      });
     } catch (error) {
       setAlert({
-        ...alert,
-        show: true
+        color: 'red',
+        show: true,
+        message: 'Unable to delete email. Please try again.'
       })
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    const parseEmail = async (addressId, id) => {
+    const getParsedEmail = async () => {
       try {
         setIsLoading(true);
-        if (addressId, id) {
-          const rawEmail = await getRawEmail(addressId, id);
-          const parsedEmail = await simpleParser(rawEmail);
-          setFetchedEmails({
-            ...fetchedEmails,
-            [id]: parsedEmail
-          })
-          return parsedEmail;
-        }
+        const rawEmail = await getRawEmail(address, focusId);
+        const parsedEmail = await simpleParser(rawEmail);
+        setFetchedEmails(prevState => ({ 
+          ...prevState,
+          [focusId]: parsedEmail
+        }));
       } catch (error) {
         setAlert({
-          ...alert,
+          color: 'red',
           show: true,
-          message: 'Could not display the email sent.'
-        })
-        console.log(error)
+          message: 'Unable to load email. Please refresh page.'
+        });
       } finally {
         setIsLoading(false);
       }
     };
-    if (!fetchedEmails.hasOwnProperty(focusId)) {
-      parseEmail(address, focusId);
-    } 
-  }, [focusId]);
+
+    if (focusId) {
+      getParsedEmail();
+    }
+  }, [address, focusId]);
 
   return (
     <div className={`EmailClient show-${focusPanel === "list" ? "list" : 'email'}`}>
@@ -66,15 +66,18 @@ const EmailClient = ({ allEmails, address, setAlert, setIsLoading, isLoading }) 
         focusId={focusId}
       />
       
-      {focusId && fetchedEmails[focusId] ? <EmailItem 
-      email={fetchedEmails[focusId]} 
-      deleteEmailWithId={deleteEmailWithId}
-      setFocusPanel={setFocusPanel} 
-      focusPanel={focusPanel} /> : <EmailEmpty />}
+      {fetchedEmails[focusId] ? (
+        <EmailItem 
+          email={fetchedEmails[focusId]} 
+          deleteEmailWithId={deleteEmailWithId}
+          setFocusPanel={setFocusPanel} 
+          focusPanel={focusPanel} 
+        />
+      ) : <EmailEmpty />}
 
       {isLoading && <EmailLoading />}
     </div>
   );
-}
+};
 
 export default EmailClient;
