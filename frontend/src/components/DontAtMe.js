@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getAddress, getEmails } from '../api/index';
 import Alert from './layout/Alert'
 import EmailClient from './emails/EmailClient';
+import Hero from './landing/Hero';
 
 const DontAtMe = (props) => { 
   const [ address, setAddress ] = useState("");
@@ -45,7 +46,7 @@ const DontAtMe = (props) => {
         setIsLoading(false);
       }
     }
-    id ? fetchEmails(id) : fetchAddress().then(() => fetchEmails(address))
+    id ? fetchEmails(id) && setAddress(id) : fetchAddress().then(() => fetchEmails(address))
   }, []);
 
   const closeAlert = () => {
@@ -57,7 +58,7 @@ const DontAtMe = (props) => {
   console.log(alert.show);
   return (
     <div>
-      <div>Email: {id}</div>
+      <Hero address={address}/>
       <EmailClient address={address} 
       allEmails={allEmails} 
       setAlert={setAlert} 
