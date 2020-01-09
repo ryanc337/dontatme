@@ -12,9 +12,9 @@ const Hero = ({ address }) => {
   };
   return(
   <main>
-    <div class="Hero-Banner">
+    <div className="Hero-Banner">
       <h1>Practice safe emails... use a burner</h1>
-      <textarea value={address} />
+      <textarea value={address} readOnly/>
       <button onClick={() => copyToClipboard(address)}>Copy</button>
     </div> 
   </main>
