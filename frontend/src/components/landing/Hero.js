@@ -2,7 +2,7 @@ import React from 'react'
 
 const Hero = ({ address }) => {
   const copyToClipboard = str => {
-    const el = document.createElement('textarea');
+    const el = document.createElement('input');
     el.value = str;
     el.setAttribute('readonly', '');
     document.body.appendChild(el);
@@ -14,7 +14,7 @@ const Hero = ({ address }) => {
   <main>
     <div className="Hero-Banner">
       <h1>Practice safe emails... use a burner</h1>
-      <textarea value={address} readOnly/>
+      <input value={address} />
       <button onClick={() => copyToClipboard(address)}>Copy</button>
     </div> 
   </main>
