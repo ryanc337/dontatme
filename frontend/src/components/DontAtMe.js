@@ -10,56 +10,50 @@ import Footer from './landing/Footer';
 
 
 const DontAtMe = (props) => { 
-  const [ address, setAddress ] = useState("");
+  const { id } = useParams();
+  const [ address, setAddress ] = useState(id || '');
   const [ allEmails, setAllEmails ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ alert, setAlert ] = useState({
     show: false,
     color: 'red',
     message: ''
-  })
-  const { id } = useParams();
+  });
  
   useEffect(() => {
-    const fetchAddress = async () => {
-      try {
-        const fetchedAddress = await getAddress();
-        setAddress(fetchedAddress.address);
-      } catch (error) {
-        setAlert({
-          ...alert,
-          show: true,
-          message: 'Could not retreive an email address from our host.'
-        })
-        console.log('Get Address function failed');
-      }
-    }
-    
     const fetchEmails = async (id) => {
+      const fetchedEmails = await getEmails(id);
+      setAllEmails(fetchedEmails);
+    };
+
+    const fetchAddress = async () => {
+      const fetchedAddress = await getAddress();
+      setAddress(fetchedAddress.address);
+    };
+    
+    const tryFetchData = async (fn, errorMsg) => {
       try {
         setIsLoading(true);
-        const fetchedEmails = await getEmails();
-        setAllEmails(fetchedEmails);
+        await fn();
       } catch (error) {
         setAlert({
-          ...alert,
+          color: 'red',
           show: true,
-          message: 'Could not retreive emails from sender.'
-        })
-        console.log('Get Emails function failed');
+          message: errorMsg
+        });
       } finally {
         setIsLoading(false);
       }
     }
-    id ? fetchEmails(id) && setAddress(id) : fetchAddress().then(() => fetchEmails(address))
+    
+    if (id) {
+      tryFetchData(() => fetchEmails(id), 'Unable to get emails. Please refresh page.');
+    } else {
+      tryFetchData(fetchAddress, 'Unable to load. Please refresh page.');
+    }
   }, []);
 
-  const closeAlert = () => {
-    setAlert({
-      ...alert,
-      show: false
-    })
-  }
+  const closeAlert = () => setAlert({ ...alert, show: false });
 
   return (
     <div className="everything">
@@ -67,10 +61,10 @@ const DontAtMe = (props) => {
       <Header />
       <Hero address={address}/>
       <EmailClient address={address} 
-      allEmails={allEmails} 
-      setAlert={setAlert} 
-      setIsLoading={setIsLoading}
-      isLoading={isLoading}
+        allEmails={allEmails} 
+        setAlert={setAlert} 
+        setIsLoading={setIsLoading}
+        isLoading={isLoading}
       />
       <Footer />
     </div>
