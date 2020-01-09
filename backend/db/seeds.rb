@@ -10,11 +10,11 @@ addresses = Address.all
   address = addresses.sample
 
   address.emails.create(
-    body: Faker::Movies::HitchhikersGuideToTheGalaxy.quote,
-    from: Faker::Internet.safe_email,
-    subject: Faker::Movies::HitchhikersGuideToTheGalaxy.marvin_quote,
-    sent_at: rand(1..48).hours.ago,
-    has_attachments: [true, false].sample,
-    storage_url: 'none'
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
+    from: "[{'address':'teddy.ph.leung@gmail.com','name':'Teddy Leung'}]",
+    subject: 'Testing Testing',
+    sent_at: '2020-01-08T17:43:23.000Z',
+    has_attachments: true,
+    storage_url: 'mt6vl3oko69vqju3q52tflgc92kvlsrpa3rm8mg1'
   )
 end
