@@ -3,7 +3,7 @@ import EmailListItem from './EmailListItem';
 import EmailListHeader from './EmailListHeader';
 
 const EmailList = ({ allEmails, setFocusPanel, setFocusId, focusId }) => {
-  
+
   return (
     <div className="EmailList">
       <EmailListHeader />

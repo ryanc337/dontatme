@@ -17,7 +17,7 @@ const DontAtMe = (props) => {
     color: 'red',
     message: ''
   });
- console.log(allEmails)
+
   useEffect(() => {
     const fetchEmails = async (id) => {
       const fetchedEmails = await getEmails(id);
@@ -59,7 +59,8 @@ const DontAtMe = (props) => {
       <Header />
       <Hero address={address}/>
       <EmailClient address={address} 
-        allEmails={allEmails} 
+        allEmails={allEmails}
+        setAllEmails={setAllEmails}
         setAlert={setAlert} 
         setIsLoading={setIsLoading}
         isLoading={isLoading}

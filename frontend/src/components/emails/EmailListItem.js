@@ -15,8 +15,7 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
       <h1>{senderName}</h1>
       <p>{body}</p>
       <p>{subject}</p>
-      {/* TODO: change this date function. It's brittle. */}
-      <p>{moment(sent_at).calendar().slice(13)}</p> 
+      <p>{moment(sent_at).format("h:mma")}</p> 
       {has_attachments && <p>paperclip</p>}
     </div>
   );
