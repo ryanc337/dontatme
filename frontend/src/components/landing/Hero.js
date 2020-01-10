@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 
 const Hero = ({ address }) => {
   const addressRef = useRef(null);
-  const copyToClipboard = e => {
+  const copyToClipboard = () => {
     addressRef.current.select();
     document.execCommand('copy');
   };
