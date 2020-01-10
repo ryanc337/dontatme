@@ -4,7 +4,9 @@ import moment from 'moment';
 const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
   const { from, sent_at, subject, body, has_attachments, id } = email;
   const senderParse = JSON.parse(from);
-  const senderName = senderParse[0]['name'];
+  // const senderName = senderParse[0]['name'];
+  const senderName = senderParse[0].name
+  console.log(senderName)
   const handleClick = (id) => {
     setFocusId(id);
     setFocusPanel('email');
