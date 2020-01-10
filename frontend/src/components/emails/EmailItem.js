@@ -8,17 +8,19 @@ const EmailItem = ({ setFocusPanel, email, deleteEmailWithId }) => {
   const cleanedHtml = sanitizeHTML(html);
 
   return (
-    <div className="EmailItem">
+    <div className="email-item">
       <EmailItemHeader 
       setFocusPanel={setFocusPanel} 
       deleteEmailWithId={deleteEmailWithId}
       />
+      <div className="email-container">
       <Email
       date={date}
       from={from}
       html={cleanedHtml}
       attachments={attachments}
       />
+      </div>
     </div>
   );
 }

@@ -20,13 +20,9 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
         return rest;
       });
       
-      const emailToBeDeletedFromList = allEmails.filter((email) => email.id === focusId );
-      setAllEmails(prevState => {
-        const [ emailToBeDeletedFromList, ...rest ] = prevState;
-        return rest;
-      }) 
-      setFocusId(null)
-      console.log('deleted email running')
+      setAllEmails(prevState => prevState.filter(email => email.id !== focusId));
+      
+      setFocusId(null);
     } catch (error) {
       setAlert({
         color: 'red',
@@ -65,14 +61,14 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
   }, [address, focusId]);
 
   return (
-    <div className={`EmailClient show-${focusPanel === "list" ? "list" : 'email'}`}>
-      {allEmails && <EmailList
+    <div className={`email-client email-client${focusPanel === "list" ? "__list" : '__email'}`}>
+      <EmailList
         setFocusPanel={setFocusPanel}
         setFocusId={setFocusId}
         allEmails={allEmails}
         focusPanel={focusPanel}
         focusId={focusId}
-      />}
+      />
       
       {fetchedEmails[focusId] ? (
         <EmailItem 
