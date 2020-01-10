@@ -20,13 +20,9 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
         return rest;
       });
       
-      const emailToBeDeletedFromList = allEmails.filter((email) => email.id === focusId );
-      setAllEmails(prevState => {
-        const [ emailToBeDeletedFromList, ...rest ] = prevState;
-        return rest;
-      }) 
-      setFocusId(null)
-      console.log('deleted email running')
+      setAllEmails(prevState => prevState.filter(email => email.id !== focusId));
+      
+      setFocusId(null);
     } catch (error) {
       setAlert({
         color: 'red',
