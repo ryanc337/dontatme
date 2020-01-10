@@ -62,13 +62,13 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
 
   return (
     <div className={`EmailClient show-${focusPanel === "list" ? "list" : 'email'}`}>
-      {allEmails && <EmailList
+      <EmailList
         setFocusPanel={setFocusPanel}
         setFocusId={setFocusId}
         allEmails={allEmails}
         focusPanel={focusPanel}
         focusId={focusId}
-      />}
+      />
       
       {fetchedEmails[focusId] ? (
         <EmailItem 
