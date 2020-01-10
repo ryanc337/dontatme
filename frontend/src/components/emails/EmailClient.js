@@ -6,7 +6,7 @@ import EmailEmpty from './EmailEmpty';
 import EmailList from './EmailList';
 import EmailItem from './EmailItem';
 
-const EmailClient = ({ allEmails, address, setAlert, setIsLoading, isLoading }) => { 
+const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading, isLoading }) => { 
   const [ focusPanel, setFocusPanel ] = useState("list");
   const [ focusId, setFocusId ] = useState(null);
   const [ fetchedEmails, setFetchedEmails ] = useState({});
@@ -19,6 +19,10 @@ const EmailClient = ({ allEmails, address, setAlert, setIsLoading, isLoading }) 
         const { focusId, ...rest } = prevState;
         return rest;
       });
+      
+      setAllEmails(prevState => prevState.filter(email => email.id !== focusId));
+      
+      setFocusId(null);
     } catch (error) {
       setAlert({
         color: 'red',
