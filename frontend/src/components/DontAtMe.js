@@ -44,7 +44,6 @@ const DontAtMe = (props) => {
     }
   }, [address]);
 
-  console.log(allEmails)
   useEffect(() => {
     const fetchEmails = async (id) => {
       const fetchedEmails = await getEmails(id);
@@ -81,12 +80,13 @@ const DontAtMe = (props) => {
   const closeAlert = () => setAlert({ ...alert, show: false });
 
   return (
-    <div className="everything">
+    <div>
       {alert.show && <Alert alert={alert} closeAlert={closeAlert}/>}
       <Header />
       <Hero address={address}/>
       <EmailClient address={address} 
-        allEmails={allEmails} 
+        allEmails={allEmails}
+        setAllEmails={setAllEmails}
         setAlert={setAlert} 
         setIsLoading={setIsLoading}
         isLoading={isLoading}
