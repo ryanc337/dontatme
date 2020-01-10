@@ -1,13 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Public+Sans:300,700i&display=swap');
+$email-client-font: Public Sans, sans-serif;
+
 body {
   background-color: rgb(22, 40, 104);
 }
 
 .email-client {
+  font-family: $email-client-font;
   display: flex;
   background-color: rgb(255, 255, 255);
   margin: 0 auto;
   height: 833px;
-  width: 1067px;
+  width: 1068px;
 
   .email-list {
     overflow: scroll;
@@ -34,6 +38,54 @@ body {
 
   .email-list-item-container {
     margin-top: 61px;
+  }
+
+  .email-list-item {
+    height: 138px;
+    font-size: 12px;
+    display: grid;
+    grid-template-columns: [col1-start] 75px [col1-end col2-start] 290px [col2-end col3-start] 24px [col3-end];
+    grid-template-rows: [row1] 71px [row2] 68px;
+
+    h1 {
+      font-size: 12px;
+      grid-column-start: col2-start;
+      grid-row-start: row1;
+      margin: 0;
+    }
+
+    img {
+      grid-column-start: col1-start;
+      grid-row-start: row2;
+    }
+
+    &__subject {
+      font-size: 14px;
+      grid-column-start: col2-start;
+      grid-row-start: row1;
+    }
+
+    &__body {
+      grid-column-start: col2-start;
+      grid-row-start: row2
+    }
+
+    &__time {
+      grid-column-start: col2-start;
+      grid-row-start: row1;
+      margin-left: auto;
+    }
+
+    &__highlight {
+      .email-list-item__subject {
+        color: rgb(45, 103, 221);
+      }
+
+      .email-list-item {
+        background-color: rgb(246, 250, 254)
+      }
+    }
+
   }
 
   .email-item-header {

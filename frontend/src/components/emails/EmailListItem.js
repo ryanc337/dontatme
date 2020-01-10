@@ -10,12 +10,13 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
   }
 //TODO: change moment format so that it will format based on time ago
   return (
-    <div className={`EmailListItem ${focusId === id ? 'highlight-email-list-item': 'email-list-item'}`} onClick={() => handleClick(email.id)}>
+    <div className={`email-list-item ${focusId === id ? 'email-list-item__highlight': 'email-list-item'}`} onClick={() => handleClick(email.id)}>
       <h1>{senderName}</h1>
-      <p>{body}</p>
-      <p>{subject}</p>
-      <p>{moment(sent_at).format("h:mma")}</p> 
-      {has_attachments && <img alt={"paperclip"}/>}
+      <span>{senderName[0]}</span>
+      <p className="email-list-item__body">{body}</p>
+      <p className="email-list-item__subject">{subject}</p>
+      <p className="email-list-item__time">{moment(sent_at).format("h:mma")}</p> 
+      {has_attachments && <img alt="paperclip"/>}
     </div>
   );
 }
