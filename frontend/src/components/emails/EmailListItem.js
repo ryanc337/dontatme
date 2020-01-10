@@ -15,7 +15,7 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
       <p>{body}</p>
       <p>{subject}</p>
       <p>{moment(sent_at).format("h:mma")}</p> 
-      {has_attachments && <p>paperclip</p>}
+      {has_attachments && <img alt={"paperclip"}/>}
     </div>
   );
 }

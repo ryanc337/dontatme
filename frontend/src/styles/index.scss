@@ -1,0 +1,55 @@
+body {
+  background-color: rgb(22, 40, 104);
+}
+
+.email-client {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  margin: 0 auto;
+  height: 833px;
+  width: 1067px;
+
+  .email-list {
+    overflow: scroll;
+    width: 391px;
+  }
+  
+  .email-list-header {
+    position: absolute;
+    border-bottom: 2px solid black;
+    height: 61px;
+    background-color: rgb(255, 255, 255);
+    width: 391px;
+  }
+
+  .email-item {
+    width: 677px;
+    overflow: scroll;
+  }
+
+  .__email-body-text {
+    margin-left: 75px;
+    margin-right: 220px;
+  }
+
+  .email-list-item-container {
+    margin-top: 61px;
+  }
+
+  .email-item-header {
+    position: absolute;
+    height: 61px;
+    background-color: rgb(255, 255, 255);
+    width: 677px;
+    border-bottom: 2px solid black;
+  }
+
+  .email-container {
+    margin-top: 61px;
+  }
+
+  .email-attachments{
+    margin-left: 75px;
+    display: grid;
+  }
+}
