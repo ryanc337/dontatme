@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import ActionCable from 'actioncable';
 import { getAddress, getEmails } from '../api/index';
 import Alert from './layout/Alert'
 import EmailClient from './emails/EmailClient';
@@ -17,6 +18,31 @@ const DontAtMe = (props) => {
     color: 'red',
     message: ''
   });
+  const cable = useRef();
+
+  useEffect(() => {
+    cable.current = ActionCable.createConsumer(process.env.REACT_APP_URL + '/cable');
+  }, []);
+
+  useEffect(() => {
+    if (address) {
+      const connection = cable.current;
+      
+      const subscriptionParams = {
+        id: address,
+        channel: 'EmailsChannel'
+      };
+  
+      const subscriptionListeners = {
+        received(data) {
+          const jsonEmail = JSON.parse(data.email);
+          setAllEmails(prevState => [...prevState, jsonEmail]);
+        }
+      };
+  
+      connection.subscriptions.create(subscriptionParams, subscriptionListeners);
+    }
+  }, [address]);
 
   useEffect(() => {
     const fetchEmails = async (id) => {
@@ -54,7 +80,7 @@ const DontAtMe = (props) => {
   const closeAlert = () => setAlert({ ...alert, show: false });
 
   return (
-    <div className="everything">
+    <div>
       {alert.show && <Alert alert={alert} closeAlert={closeAlert}/>}
       <Header />
       <Hero address={address}/>
