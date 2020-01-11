@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
+import ActionCable from 'actioncable';
 import { getAddress } from '../../api';
 import Alert from '../layout/Alert';
 import Loading from '../layout/Loading';
 
 const EmailClient = (props) => {
   const [ address, setAddress ] = useState('');
-  // const [ allEmails, setAllEmails ] = useState([]);
+  const [ allEmails, setAllEmails ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ alert, setAlert ] = useState({ show: false, color: 'red', message: '' });
   // const [ focusPanel, setFocusPanel ] = useState("list");
   // const [ focusId, setFocusId ] = useState(null);
   // const [ fetchedEmails, setFetchedEmails ] = useState({});
-  // const cable = useRef();
+  const cable = useRef();
 
   useEffect(() => {
     const tryFetchAddress = async () => {
@@ -31,7 +32,31 @@ const EmailClient = (props) => {
     };
 
     tryFetchAddress();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    cable.current = ActionCable.createConsumer(process.env.REACT_APP_URL + '/cable');
+  }, []);
+
+  useEffect(() => {
+    if (address) {
+      const connection = cable.current;
+      
+      const subscriptionParams = {
+        id: address,
+        channel: 'EmailsChannel'
+      };
+  
+      const subscriptionListeners = {
+        received(data) {
+          const jsonEmail = JSON.parse(data.email);
+          setAllEmails(prevState => [...prevState, jsonEmail]);
+        }
+      };
+  
+      connection.subscriptions.create(subscriptionParams, subscriptionListeners);
+    }
+  }, [address]);
 
   return (
     <div>
@@ -42,6 +67,7 @@ const EmailClient = (props) => {
       />}
       {isLoading && <Loading />}
       <div>{address}</div>
+      { allEmails.map((email, i) => (<div key={i}>{JSON.stringify(email)}</div>)) }
     </div>
   );
 };
