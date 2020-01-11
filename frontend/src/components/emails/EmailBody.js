@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EmailBody = ({ html, from, date }) => {
+const EmailBody = ({ html }) => {
   return(
     <article className="email-body">
       <p dangerouslySetInnerHTML={{

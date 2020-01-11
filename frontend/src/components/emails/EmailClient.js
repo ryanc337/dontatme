@@ -5,7 +5,6 @@ import EmailLoading from './EmailLoading';
 import EmailEmpty from './EmailEmpty';
 import EmailList from './EmailList';
 import EmailItem from './EmailItem';
-import EmailItemHeader from './EmailItemHeader';
 
 const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading, isLoading }) => { 
   const [ focusPanel, setFocusPanel ] = useState("list");
@@ -15,15 +14,15 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
   const deleteEmailWithId = async () => {
     try {
       setIsLoading(true);
-      const deletedEmail = await deleteEmail(address, focusId);
+      const prevFocusId = focusId;
+      const deletedEmail = await deleteEmail(address, prevFocusId);
+      setFocusId(null);
       deletedEmail && setFetchedEmails(prevState => {
-        const { focusId, ...rest } = prevState;
+        const { prevFocusId, ...rest } = prevState;
         return rest;
       });
+      setAllEmails(prevState => prevState.filter(email => email.id !== prevFocusId));
       
-      setAllEmails(prevState => prevState.filter(email => email.id !== focusId));
-      
-      setFocusId(null);
     } catch (error) {
       setAlert({
         color: 'red',
@@ -61,6 +60,12 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
     }
   }, [address, focusId]);
 
+  const getFrom = (allEmails, id) => {
+    const email = allEmails.find((email) => email.id === id)
+    const from = JSON.parse(email.from);
+    return from[0].name
+  }
+  
   return (
     <div className={`email-client email-client${focusPanel === "list" ? "__list" : '__email'}`}>
       <EmailList
@@ -71,10 +76,10 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
         focusId={focusId}
       />
       {isLoading && <EmailLoading />}
+
       {fetchedEmails[focusId] ? (
         <EmailItem 
-          focusId={focusId}
-          allEmails={allEmails}
+          from={getFrom(allEmails, focusId)}
           email={fetchedEmails[focusId]} 
           deleteEmailWithId={deleteEmailWithId}
           setFocusPanel={setFocusPanel} 
