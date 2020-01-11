@@ -1,4 +1,6 @@
 import React from 'react';
+import './vendor/normalize-v8.0.1.css'
+import './styles/index.scss'
 import DontAtMe from './components/DontAtMe';
 import {
   BrowserRouter as Router,

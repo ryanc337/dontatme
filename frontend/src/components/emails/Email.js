@@ -5,11 +5,11 @@ import EmailAttachments from './EmailAttachments';
 
 const Email = ({ attachments, html, from, date }) => {
   return(
-    <div className="Email">
+    <div className="email">
       <EmailBody 
-      date={moment(date).calendar()}
-      from={from}
-      html={html}
+        date={moment(date).calendar()}
+        from={from}
+        html={html}
       />
       {attachments && <EmailAttachments attachments={attachments}/>}
     </div>

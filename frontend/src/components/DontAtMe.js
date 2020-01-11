@@ -7,7 +7,7 @@ import EmailClient from './emails/EmailClient';
 import Hero from './landing/Hero';
 import Header from './landing/Header'
 import Footer from './landing/Footer';
-import '../styles/index.scss';
+
 
 const DontAtMe = (props) => { 
   const { id } = useParams();

@@ -5,6 +5,7 @@ import EmailLoading from './EmailLoading';
 import EmailEmpty from './EmailEmpty';
 import EmailList from './EmailList';
 import EmailItem from './EmailItem';
+import EmailItemHeader from './EmailItemHeader';
 
 const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading, isLoading }) => { 
   const [ focusPanel, setFocusPanel ] = useState("list");
@@ -69,9 +70,11 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
         focusPanel={focusPanel}
         focusId={focusId}
       />
-      
+
       {fetchedEmails[focusId] ? (
         <EmailItem 
+          focusId={focusId}
+          allEmails={allEmails}
           email={fetchedEmails[focusId]} 
           deleteEmailWithId={deleteEmailWithId}
           setFocusPanel={setFocusPanel} 
