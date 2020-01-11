@@ -14,15 +14,21 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
   const deleteEmailWithId = async () => {
     try {
       setIsLoading(true);
-      const deletedEmail = await deleteEmail(address, focusId);
-      deletedEmail && setFetchedEmails(prevState => {
-        const { focusId, ...rest } = prevState;
-        return rest;
-      });
-      
-      setAllEmails(prevState => prevState.filter(email => email.id !== focusId));
-      
+
+      const prevFocusId = focusId;
+
+      const deletedEmail = await deleteEmail(address, prevFocusId);
+
       setFocusId(null);
+
+      if (deletedEmail) {
+        setFetchedEmails(prevState => {
+          const { prevFocusId, ...rest } = prevState;
+          return rest;
+        });
+
+        setAllEmails(prevState => prevState.filter(email => email.id !== prevFocusId));
+      }
     } catch (error) {
       setAlert({
         color: 'red',
@@ -60,8 +66,14 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
     }
   }, [address, focusId]);
 
+  const getFrom = (allEmails, id) => {
+    const email = allEmails.find((email) => email.id === id)
+    const from = JSON.parse(email.from);
+    return from[0].name
+  }
+  
   return (
-    <div className={`EmailClient show-${focusPanel === "list" ? "list" : 'email'}`}>
+    <div className={`email-client email-client${focusPanel === "list" ? "__list" : '__email'}`}>
       <EmailList
         setFocusPanel={setFocusPanel}
         setFocusId={setFocusId}
@@ -69,9 +81,10 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
         focusPanel={focusPanel}
         focusId={focusId}
       />
-      
+
       {fetchedEmails[focusId] ? (
         <EmailItem 
+          from={getFrom(allEmails, focusId)}
           email={fetchedEmails[focusId]} 
           deleteEmailWithId={deleteEmailWithId}
           setFocusPanel={setFocusPanel} 

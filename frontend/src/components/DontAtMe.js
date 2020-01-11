@@ -8,6 +8,7 @@ import Hero from './landing/Hero';
 import Header from './landing/Header'
 import Footer from './landing/Footer';
 
+
 const DontAtMe = (props) => { 
   const { id } = useParams();
   const [ address, setAddress ] = useState(id || '');
@@ -80,7 +81,7 @@ const DontAtMe = (props) => {
   const closeAlert = () => setAlert({ ...alert, show: false });
 
   return (
-    <div>
+    <div className="DontAtMe">
       {alert.show && <Alert alert={alert} closeAlert={closeAlert}/>}
       <Header />
       <Hero address={address}/>
