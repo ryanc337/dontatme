@@ -1,13 +1,16 @@
 import React from 'react';
 
-const EmailItemHeader = ({ setFocusPanel, deleteEmailWithId }) => {
+const EmailItemHeader = ({ setFocusPanel, deleteEmailWithId, from }) => {
 
   return (
-    <nav className="EmailItemHeader">
-      <img className="logo"></img>
-      <i onClick={()=> setFocusPanel('list')}>Back</i>
-      <i onClick={deleteEmailWithId}>Delete</i>
-    </nav>
+    <header className="email-item-header">
+      <div className="initial-circle">T</div>
+      <div className="email-item-header__from heading">{from}</div>
+      <div>
+        <span className="email-item-header__control-item" onClick={()=> setFocusPanel('list')}>B</span>
+        <span className="email-item-header__control-item" onClick={deleteEmailWithId}>T</span>
+      </div>
+    </header>
   );
 }
 

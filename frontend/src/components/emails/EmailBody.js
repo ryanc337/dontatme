@@ -1,17 +1,13 @@
 import React from 'react';
 
-const EmailBody = ({ html, from, date }) => {
+const EmailBody = ({ html }) => {
   return(
-    <div className = "Emailbody">
-      <p>{from.value[0].address}</p>
-      <p>{date.toString()}</p>
-    <article>
+    <article className="email-body">
       <p dangerouslySetInnerHTML={{
         __html: html
       }}>
       </p>
-      </article>
-    </div>
+    </article>
   );
 }
 
