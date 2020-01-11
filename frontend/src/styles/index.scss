@@ -56,23 +56,25 @@ body {
   grid-template-columns: 52px 1fr;
   grid-template-rows: 1fr 1fr;
   padding: 24px;
+  border-left: 1px solid rgb(255, 255, 255);
 
   &__selected {
     background-color: rgb(244, 250, 255);
+    border-left: 1px solid rgb(33, 113, 223);
     
     .heading {
-      color: rgb(0, 115, 250,)
+      color: rgb(33, 113, 223)
     }
   }
 
   &__sender-data {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     display: grid;
     grid-template-columns: 1fr auto;
   }
 
   &__sender-name {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   &__body-preview {
@@ -87,8 +89,8 @@ body {
 
   &__initial {
     background-color: rgb(255, 49, 104);
-    height: 34px;
-    width: 34px;
+    height: 32px;
+    width: 32px;
     border-radius: 50%;
     display: grid;
     align-items: center;
@@ -147,5 +149,10 @@ body {
   font-size: 16px;
   font-weight: 600;
   color: $font-color-main
+}
+
+.email-loading {
+  display: grid;
+  grid-template-columns: 1fr auto;
 }
 

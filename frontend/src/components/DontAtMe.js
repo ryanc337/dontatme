@@ -13,7 +13,7 @@ const DontAtMe = (props) => {
   const { id } = useParams();
   const [ address, setAddress ] = useState(id || '');
   const [ allEmails, setAllEmails ] = useState([]);
-  const [ isLoading, setIsLoading ] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(true);
   const [ alert, setAlert ] = useState({
     show: false,
     color: 'red',

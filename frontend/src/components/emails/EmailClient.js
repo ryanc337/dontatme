@@ -70,7 +70,7 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
         focusPanel={focusPanel}
         focusId={focusId}
       />
-
+      {isLoading && <EmailLoading />}
       {fetchedEmails[focusId] ? (
         <EmailItem 
           focusId={focusId}
@@ -82,7 +82,6 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
         />
       ) : <EmailEmpty />}
 
-      {isLoading && <EmailLoading />}
     </div>
   );
 };
