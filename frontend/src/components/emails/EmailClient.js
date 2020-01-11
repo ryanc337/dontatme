@@ -14,15 +14,21 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
   const deleteEmailWithId = async () => {
     try {
       setIsLoading(true);
+
       const prevFocusId = focusId;
+
       const deletedEmail = await deleteEmail(address, prevFocusId);
+
       setFocusId(null);
-      deletedEmail && setFetchedEmails(prevState => {
-        const { prevFocusId, ...rest } = prevState;
-        return rest;
-      });
-      setAllEmails(prevState => prevState.filter(email => email.id !== prevFocusId));
-      
+
+      if (deletedEmail) {
+        setFetchedEmails(prevState => {
+          const { prevFocusId, ...rest } = prevState;
+          return rest;
+        });
+
+        setAllEmails(prevState => prevState.filter(email => email.id !== prevFocusId));
+      }
     } catch (error) {
       setAlert({
         color: 'red',
@@ -75,7 +81,6 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
         focusPanel={focusPanel}
         focusId={focusId}
       />
-      {isLoading && <EmailLoading />}
 
       {fetchedEmails[focusId] ? (
         <EmailItem 
@@ -87,6 +92,7 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
         />
       ) : <EmailEmpty />}
 
+      {isLoading && <EmailLoading />}
     </div>
   );
 };
