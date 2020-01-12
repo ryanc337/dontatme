@@ -8,11 +8,17 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
     setFocusId(id);
     setFocusPanel('email');
   }
+
+  const className = () => {
+    let classNameString = 'email-list-item';
+    classNameString += focusId === id ? ' email-list-item__selected': '';
+    classNameString += is_read ? ' email-list-item__read' : '';
+    return classNameString;
+  } 
 //TODO: change moment format so that it will format based on time ago
   return (
-  <div className={`${is_read ? 'email-list-item__read-item' : 'email-list-item__unread-body'}`}>
     <div
-      className={`email-list-item ${focusId === id ? 'email-list-item__selected': 'email-list-item'}`} 
+      className={className()} 
       onClick={() => handleClick(email.id)}
     >
       <div className="email-list-item__initial-container">
@@ -31,7 +37,6 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
       <div className="email-list-item__attachment">{has_attachments && <span>P</span>}</div>
       <div className="email-list-item__body-preview">{`${body}...`}</div>
     </div>
-  </div>
   );
 }
 
