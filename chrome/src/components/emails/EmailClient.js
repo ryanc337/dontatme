@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ActionCable from 'actioncable';
-import { getAddress } from '../../api';
+import { getAddress, getEmails } from '../../api';
 import Alert from '../layout/Alert';
 import Loading from '../layout/Loading';
 
@@ -16,26 +16,36 @@ const EmailClient = (props) => {
 
   /* global chrome */ 
   useEffect(() => {
-    const tryFetchAddress = async () => {
+    const fetchEmails = async (id) => {
+      const fetchedEmails = await getEmails(id);
+      setAllEmails(fetchedEmails.emails);
+    };
+
+    const fetchAddress = async () => {
+      const fetchedAddress = await getAddress();
+      chrome.storage.local.set({ address: fetchedAddress.address });
+      setAddress(fetchedAddress.address);
+    };
+    
+    const tryFetchData = async (fn, errorMsg) => {
       try {
         setIsLoading(true);
-
-        const fetchedAddress = await getAddress();
-        chrome.storage.local.set({ address: fetchedAddress.address });
-        setAddress(fetchedAddress.address);
+        await fn();
       } catch (error) {
         setAlert({
           color: 'red',
           show: true,
-          message: 'Unable to load. Please refresh page.'
+          message: errorMsg
         });
       } finally {
         setIsLoading(false);
       }
     };
 
-    if (!address) {
-      tryFetchAddress();
+    if (address) {
+      tryFetchData(() => fetchEmails(address), 'Unable to get emails. Please refresh page.');
+    } else {
+      tryFetchData(fetchAddress, 'Unable to load. Please refresh page.');
     }
   }, []);
 
