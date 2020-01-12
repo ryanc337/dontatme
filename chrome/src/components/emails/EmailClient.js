@@ -5,7 +5,7 @@ import Alert from '../layout/Alert';
 import Loading from '../layout/Loading';
 
 const EmailClient = (props) => {
-  const [ address, setAddress ] = useState('');
+  const [ address, setAddress ] = useState(props.address || '');
   const [ allEmails, setAllEmails ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ alert, setAlert ] = useState({ show: false, color: 'red', message: '' });
@@ -14,11 +14,14 @@ const EmailClient = (props) => {
   // const [ fetchedEmails, setFetchedEmails ] = useState({});
   const cable = useRef();
 
+  /* global chrome */ 
   useEffect(() => {
     const tryFetchAddress = async () => {
       try {
         setIsLoading(true);
+
         const fetchedAddress = await getAddress();
+        chrome.storage.local.set({ address: fetchedAddress.address });
         setAddress(fetchedAddress.address);
       } catch (error) {
         setAlert({
@@ -31,7 +34,9 @@ const EmailClient = (props) => {
       }
     };
 
-    tryFetchAddress();
+    if (!address) {
+      tryFetchAddress();
+    }
   }, []);
 
   useEffect(() => {

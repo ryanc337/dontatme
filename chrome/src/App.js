@@ -3,9 +3,9 @@ import './vendor/normalize-8.0.1.css';
 import './App.css';
 import EmailClient from './components/emails/EmailClient';
 
-function App() {
+function App({ address }) {
   return (
-    <EmailClient />
+    <EmailClient address={address} />
   );
 }
 
