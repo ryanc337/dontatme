@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { simpleParser } from 'mailparser';
-import { getRawEmail, deleteEmail } from '../../api/index';
+import { getRawEmail, deleteEmail, updateEmailIsRead } from '../../api/index';
 import EmailLoading from './EmailLoading';
 import EmailEmpty from './EmailEmpty';
 import EmailList from './EmailList';
@@ -42,14 +42,30 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
 
   useEffect(() => {
     const getParsedEmail = async () => {
+      const rawEmail = await getRawEmail(address, focusId);
+      const parsedEmail = await simpleParser(rawEmail);
+      setFetchedEmails(prevState => ({ 
+        ...prevState,
+        [focusId]: parsedEmail
+      }));
+    };
+
+    const readEmail = (address, focusId) => {
       try {
-        setIsLoading(true);
-        const rawEmail = await getRawEmail(address, focusId);
-        const parsedEmail = await simpleParser(rawEmail);
-        setFetchedEmails(prevState => ({ 
-          ...prevState,
-          [focusId]: parsedEmail
-        }));
+        setAllEmails(prevState => prevState.map(email => {
+          return email.id === focusId ? { ...email, is_read: true } : email
+        }))
+        updateEmailIsRead(address, focusId)
+      } catch (error) {
+        // Fail silently
+      }
+    }
+
+    const openEmail = async () => {
+      setIsLoading(true);
+      try {
+        await getParsedEmail()
+        readEmail(address, focusId)
       } catch (error) {
         setAlert({
           color: 'red',
@@ -59,10 +75,10 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
       } finally {
         setIsLoading(false);
       }
-    };
+    }
 
     if (focusId) {
-      getParsedEmail();
+      openEmail()
     }
   }, [address, focusId]);
 

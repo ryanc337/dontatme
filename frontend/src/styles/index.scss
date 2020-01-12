@@ -92,6 +92,23 @@ body {
     justify-self: center;
     align-self: center;
   }
+
+  &__unread {
+    height: 8px;
+    width: 8px;
+    background-color: rgb(33, 113, 223);
+    border-radius: 50%;
+    margin-top: 7px;
+  }
+
+  &__read-item {
+    opacity: 0.65;
+  }
+}
+
+.heading-container {
+  display: grid;
+  grid-template-columns: 1fr 162px;
 }
 
 .email {
