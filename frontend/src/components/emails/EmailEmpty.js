@@ -1,9 +1,7 @@
 import React from 'react';
 
-const EmailEmpty = () => {
-  return (
-    <div className="email-empty"></div>
-  )
-}
+const EmailEmpty = () => (
+  <div className="email-empty" />
+);
 
 export default EmailEmpty;

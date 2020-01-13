@@ -2,51 +2,51 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import ActionCable from 'actioncable';
 import { getAddress, getEmails } from '../api/index';
-import Alert from './layout/Alert'
+import Alert from './layout/Alert';
 import EmailClient from './emails/EmailClient';
 import Hero from './landing/Hero';
-import Header from './landing/Header'
+import Header from './landing/Header';
 
 
-const DontAtMe = (props) => { 
+const DontAtMe = () => {
   const { id } = useParams();
-  const [ address, setAddress ] = useState(id || '');
-  const [ allEmails, setAllEmails ] = useState([]);
-  const [ isLoading, setIsLoading ] = useState(false);
-  const [ alert, setAlert ] = useState({
+  const [address, setAddress] = useState(id || '');
+  const [allEmails, setAllEmails] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [alert, setAlert] = useState({
     show: false,
     color: 'red',
-    message: ''
+    message: '',
   });
   const cable = useRef();
 
   useEffect(() => {
-    cable.current = ActionCable.createConsumer(process.env.REACT_APP_URL + '/cable');
+    cable.current = ActionCable.createConsumer(`${process.env.REACT_APP_URL}/cable`);
   }, []);
 
   useEffect(() => {
     if (address) {
       const connection = cable.current;
-      
+
       const subscriptionParams = {
         id: address,
-        channel: 'EmailsChannel'
+        channel: 'EmailsChannel',
       };
-  
+
       const subscriptionListeners = {
         received(data) {
           const jsonEmail = JSON.parse(data.email);
-          setAllEmails(prevState => [...prevState, jsonEmail]);
-        }
+          setAllEmails((prevState) => [...prevState, jsonEmail]);
+        },
       };
-  
+
       connection.subscriptions.create(subscriptionParams, subscriptionListeners);
     }
   }, [address]);
 
   useEffect(() => {
-    const fetchEmails = async (id) => {
-      const fetchedEmails = await getEmails(id);
+    const fetchEmails = async (idParams) => {
+      const fetchedEmails = await getEmails(idParams);
       setAllEmails(fetchedEmails.emails);
     };
 
@@ -54,7 +54,7 @@ const DontAtMe = (props) => {
       const fetchedAddress = await getAddress();
       setAddress(fetchedAddress.address);
     };
-    
+
     const tryFetchData = async (fn, errorMsg) => {
       try {
         setIsLoading(true);
@@ -63,13 +63,13 @@ const DontAtMe = (props) => {
         setAlert({
           color: 'red',
           show: true,
-          message: errorMsg
+          message: errorMsg,
         });
       } finally {
         setIsLoading(false);
       }
-    }
-    
+    };
+
     if (id) {
       tryFetchData(() => fetchEmails(id), 'Unable to get emails. Please refresh page.');
     } else {
@@ -81,13 +81,14 @@ const DontAtMe = (props) => {
 
   return (
     <div className="DontAtMe">
-      {alert.show && <Alert alert={alert} closeAlert={closeAlert}/>}
+      {alert.show && <Alert alert={alert} closeAlert={closeAlert} />}
       <Header />
-      <Hero address={address}/>
-      <EmailClient address={address} 
+      <Hero address={address} />
+      <EmailClient
+        address={address}
         allEmails={allEmails}
         setAllEmails={setAllEmails}
-        setAlert={setAlert} 
+        setAlert={setAlert}
         setIsLoading={setIsLoading}
         isLoading={isLoading}
       />

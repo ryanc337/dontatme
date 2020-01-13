@@ -2,11 +2,8 @@ import React from 'react';
 import { ReactComponent as Attachment } from '../../assets/attachment.svg';
 
 const EmailAttachment = ({ attachment }) => {
-
-  const convertAttachment = () => {
-    return window.URL.createObjectURL(new Blob([attachment.content], {type: `${attachment.contentType}`}));
-  }
-  return(
+  const convertAttachment = () => window.URL.createObjectURL(new Blob([attachment.content], { type: `${attachment.contentType}` }));
+  return (
     <div className="email-attachment">
       <Attachment />
       <a
@@ -18,6 +15,6 @@ const EmailAttachment = ({ attachment }) => {
       </a>
     </div>
   );
-}
+};
 
 export default EmailAttachment;

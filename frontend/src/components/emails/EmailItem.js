@@ -3,15 +3,17 @@ import sanitizeHTML from 'sanitize-html';
 import Email from './Email';
 import EmailItemHeader from './EmailItemHeader';
 
-const EmailItem = ({ setFocusPanel, email, deleteEmailWithId, from }) => {
+const EmailItem = ({
+  setFocusPanel, email, deleteEmailWithId, from,
+}) => {
   const { attachments, html } = email;
   const cleanedHtml = sanitizeHTML(html);
 
   return (
     <div className="email-item">
-      <EmailItemHeader 
+      <EmailItemHeader
         from={from}
-        setFocusPanel={setFocusPanel} 
+        setFocusPanel={setFocusPanel}
         deleteEmailWithId={deleteEmailWithId}
       />
 
@@ -21,6 +23,6 @@ const EmailItem = ({ setFocusPanel, email, deleteEmailWithId, from }) => {
       />
     </div>
   );
-}
+};
 
 export default EmailItem;
