@@ -15,7 +15,13 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
     is_read && (classNameString += ' email-list-item__read');
     return classNameString;
   } 
-//TODO: change moment format so that it will format based on time ago
+
+  const formatTime = () => {
+    const duration = moment.duration(moment().diff(sent_at))
+    const hours = duration.asHours();
+    return hours >= 24 ? moment(sent_at).format('MMM H') : moment(sent_at).format('h:mma');
+  }
+
   return (
     <div
       className={className()} 
@@ -27,11 +33,11 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
       <div>
         <div className="email-list-item__sender-data">
           <span>{senderName}</span>
-          <span>{moment(sent_at).format("h:mma")}</span>
+          <span>{formatTime()}</span>
         </div>
       <div className="email-list-item__subject">
         <div className="heading">{subject}</div>
-        <div className="email-list-item__unread-dot"></div>
+        <div className={!is_read ? "email-list-item__unread-dot" : ""}></div>
       </div>
       </div>
       <div className="email-list-item__attachment">{has_attachments && <span>P</span>}</div>
