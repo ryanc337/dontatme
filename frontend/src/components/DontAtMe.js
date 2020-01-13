@@ -6,7 +6,6 @@ import Alert from './layout/Alert'
 import EmailClient from './emails/EmailClient';
 import Hero from './landing/Hero';
 import Header from './landing/Header'
-import Footer from './landing/Footer';
 
 
 const DontAtMe = (props) => { 
@@ -92,7 +91,6 @@ const DontAtMe = (props) => {
         setIsLoading={setIsLoading}
         isLoading={isLoading}
       />
-      <Footer />
     </div>
   );
 };

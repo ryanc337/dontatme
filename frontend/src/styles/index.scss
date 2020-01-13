@@ -23,15 +23,21 @@ body {
   font-size: 16px;
 }
 
+a, a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
 .email-client {
   background-color: $white;
   width: 1068px;
   height: 90vh;
-  margin: 0 auto;
+  margin: 48px auto;
   border-radius: 5px;
   display: grid;
   grid-template-columns: 391px 1fr;
   position: relative;
+  box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.2);
 }
 
 .email-list {
@@ -55,10 +61,9 @@ body {
 .email-list-item {
   border-bottom: $border;
   color: $font-color-grey;
-  height: 138px;
   display: grid;
   grid-template-columns: 52px 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: auto auto;
   padding: 24px 21px;
   border-left: 3px solid $transparent;
   border-right: 3px solid $transparent;
@@ -70,7 +75,7 @@ body {
   }
 
   &__read {
-    opacity: 0.65;
+    opacity: 0.55;
   }
 
   &__selected {
@@ -88,14 +93,18 @@ body {
   }
 
   &__sender-data {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     display: grid;
     grid-template-columns: 1fr auto;
+    color: #AAB2B6;
+    font-size: 13px;
   }
 
   &__body-preview {
     margin-top: 16px;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
   }
 
   &__initial-container {
@@ -105,14 +114,19 @@ body {
   &__attachment {
     justify-self: center;
     align-self: center;
+    padding: 6px 10px 0 0;
   }
-
+  
   &__unread-dot {
     height: 7px;
     width: 7px;
     background-color: #2974FF;
     border-radius: 50%;
     margin-left: 15px;
+  }
+
+  &__read &__unread-dot {
+    display: none;
   }
 
   &__subject {
@@ -126,23 +140,66 @@ body {
 .email {
   height: calc(90vh - 62px);
   overflow-y: auto;
-  padding: 16px 36px 64px 36px;
+  padding: 16px 36px 48px 36px;
 }
 
 .email-item-header {
   border-bottom: $border;
   height: 62px;
-  padding: 0 32px;
+  padding: 0 24px;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
 
   &__from {
-    padding-left: 24px;
+    padding-left: 12px;
+  }
+
+  &__control-items {
+    display: grid;
+    grid-template-columns: auto auto;
+    border: 1px solid #ECF0F0;
+    border-radius: 3px;
   }
 
   &__control-item {
     cursor: pointer;
+    display: grid;
+    width: 50px;
+    height: 34px;
+    justify-items: center;
+    align-items: center;
+
+    &:hover {
+      background-color: #F3F8F8;
+    }
+
+    &--left {
+      width: 51px;
+      border-right: 1px solid #ECF0F0;;
+    }
+  }
+}
+
+.email-attachments {
+  margin-top: 48px;
+  border-top: 1px solid #ECF0F0;
+  border-bottom: 1px solid #ECF0F0;
+  padding: 12px 0;
+}
+
+.email-attachment {
+  display: inline-grid;
+  margin: 8px 16px 8px 0;
+  grid-template-columns: auto auto;
+  align-items: center;
+  grid-column-gap: 12px;
+  cursor: pointer;
+
+  &__name {
+    font-size: 13px;
+    color: $font-color-main;
+    font-weight: 600;
   }
 }
 
@@ -237,5 +294,6 @@ body {
   align-items: center;
   justify-items: center;
   color: $white;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 18px;
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { ReactComponent as Paperclip } from '../../assets/paperclip.svg';
 
 const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
   const { from, sent_at, subject, body, has_attachments, id, is_read } = email;
@@ -27,14 +28,16 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
       <div>
         <div className="email-list-item__sender-data">
           <span>{senderName}</span>
-          <span>{moment(sent_at).format("h:mma")}</span>
+          <span>{moment(sent_at).format("h:mm A")}</span>
         </div>
       <div className="email-list-item__subject">
         <div className="heading">{subject}</div>
         <div className="email-list-item__unread-dot"></div>
       </div>
       </div>
-      <div className="email-list-item__attachment">{has_attachments && <span>P</span>}</div>
+      <div className="email-list-item__attachment">
+        {has_attachments && <Paperclip />}
+      </div>
       <div className="email-list-item__body-preview">{`${body}...`}</div>
     </div>
   );

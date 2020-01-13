@@ -4,11 +4,9 @@ import EmailAttachment from './EmailAttachment';
 const EmailAttachments = ({ attachments }) => {
   return(
     <div className="email-attachments">
-      {
-        attachments.map((attachment, index) => {
-          return(<EmailAttachment key={index} attachment={attachment}/>)
-        })
-      }
+      {attachments.map((attachment, index) => (
+        <EmailAttachment key={index} attachment={attachment}/>
+      ))}
     </div>
   );
 }
