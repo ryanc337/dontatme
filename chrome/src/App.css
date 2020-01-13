@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+body {
+  width: 400px;
+  height: 700px;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.flash {
+  font-size: 16px;
+  position: fixed;
+  top: 16px;
+  left: 24px;
+  right: 24px;
+  min-height: 64px;
+  border-radius: 5px;
+  padding: 6px 24px;
+  border: 1px solid #0CABE8;
+  color: #008CC2;
+  background-color: #CAEBFC;
+  line-height: 1.5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 200;
+}
+
+.flash__close {
+  font-size: 2.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #75D0F3;
+}
+
+.flash__info {
+  display: flex;
+  align-items: center;
+}
+
+.flash__text {
+  margin-left: 16px;
+}
+
+.flash__title {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.flash--success {
+  color: #49B48A;
+  border-color: #009D6C;
+  background-color: #D9F2D5;
+}
+
+.flash--success .flash__close {
+  color: #87CFAB;
+}
+
+.flash--warning {
+  color: #BD8A21;
+  border-color: #FFBE00;
+  background-color: #FFF0B9;
+}
+
+.flash--warning .flash__close {
+  color: #EFC22F;
+}
+
+.flash--error {
+  color: #EA5552;
+  border-color: #EA5552;
+  background-color: #FAC8C6;
+}
+
+.flash--error .flash__close {
+  color: #F49A98;
+}
