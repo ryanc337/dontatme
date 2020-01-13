@@ -1,6 +1,6 @@
 class EmailsController < ApplicationController
-  before_action :get_address, only: [:index, :show, :create, :destroy]
-  before_action :get_email, only: [:show, :destroy]
+  before_action :get_address, only: [:index, :show, :create, :destroy, :read]
+  before_action :get_email, only: [:show, :destroy, :read]
   
   def index
     @emails = @address.emails
@@ -29,6 +29,14 @@ class EmailsController < ApplicationController
       render json: { status: 200 }
     else
       render json: { error: 'Failed to create email' }, status: 400
+    end
+  end
+
+  def read 
+    if @email.update(is_read: true)
+      render json: { status: 200 }
+    else
+      render json: { error: 'Failed to update email'}, status: 400
     end
   end
 
