@@ -2,9 +2,7 @@ import React from 'react';
 
 const EmailEmpty = () => {
   return (
-    <div className="EmailEmpty">
-      Email Empty
-    </div>
+    <div className="email-empty"></div>
   )
 }
 
