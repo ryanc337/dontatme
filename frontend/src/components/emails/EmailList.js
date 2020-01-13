@@ -10,10 +10,11 @@ const EmailList = ({ allEmails, setFocusPanel, setFocusId, focusId }) => {
         {allEmails.map((email) => {
           return (
           <EmailListItem 
-          setFocusId={setFocusId} 
-          setFocusPanel={setFocusPanel} 
-          focusId={focusId} key={email.id} 
-          email={email}  
+            setFocusId={setFocusId} 
+            setFocusPanel={setFocusPanel} 
+            focusId={focusId}
+            key={email.id} 
+            email={email}  
           />
           )
         })}

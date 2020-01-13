@@ -102,18 +102,20 @@ body {
     align-self: center;
   }
 
-  &__unread {
-    height: 8px;
-    width: 8px;
-    background-color: rgb(33, 113, 223);
+  &__unread-dot {
+    height: 7px;
+    width: 7px;
+    background-color: #2974FF;
     border-radius: 50%;
-    margin-top: 7px;
+    margin-left: 15px;
   }
-}
 
-.heading-container {
-  display: grid;
-  grid-template-columns: 1fr 162px;
+  &__subject {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    align-items: center;
+  }
 }
 
 .email {

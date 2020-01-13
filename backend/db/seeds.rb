@@ -14,7 +14,6 @@ addresses = Address.all
     subject: 'Testing Testing',
     sent_at: '2020-01-08T17:43:23.000Z',
     has_attachments: true,
-    is_read: false,
     storage_url: 'mt6vl3oko69vqju3q52tflgc92kvlsrpa3rm8mg1'
   )
 end

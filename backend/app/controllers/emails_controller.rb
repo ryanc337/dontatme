@@ -36,7 +36,7 @@ class EmailsController < ApplicationController
     if @email.update(is_read: true)
       render json: { status: 200 }
     else
-      render json: { error: 'Failed to update email'}
+      render json: { error: 'Failed to update email'}, status: 400
     end
   end
 
