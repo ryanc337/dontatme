@@ -25,3 +25,8 @@ export const getRawEmail = async (addressId, id) => {
   const response = await axios.get(url);
   return response.data;
 };
+
+export const updateEmailIsRead = async (addressId, id) => {
+  const response = await axios.put(process.env.REACT_APP_URL + `/addresses/${addressId}/emails/${id}/read`);
+  return response.data;
+}
