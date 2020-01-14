@@ -7,7 +7,7 @@ import EmailClient from './emails/EmailClient';
 import Hero from './landing/Hero';
 import Header from './landing/Header';
 
-const DontAtMe = (props) => { 
+const DontAtMe = () => {
   const { id } = useParams();
   const [address, setAddress] = useState(id || '');
   const [allEmails, setAllEmails] = useState([]);
