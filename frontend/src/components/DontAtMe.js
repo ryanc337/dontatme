@@ -31,18 +31,18 @@ const DontAtMe = (props) => {
         id: address,
         channel: 'EmailsChannel',
       };
-
+      //new emails has to be prepended here
       const subscriptionListeners = {
         received(data) {
           const jsonEmail = JSON.parse(data.email);
-          setAllEmails((prevState) => [...prevState, jsonEmail]);
+          setAllEmails((prevState) => [jsonEmail, ...prevState]);
         },
       };
 
       connection.subscriptions.create(subscriptionParams, subscriptionListeners);
     }
   }, [address]);
-
+// new email is already ordered by rails
   useEffect(() => {
     const fetchEmails = async (idParams) => {
       const fetchedEmails = await getEmails(idParams);
