@@ -22,9 +22,9 @@ const EmailListItem = ({
   };
 
   const formatTime = () => {
-    const duration = moment.duration(moment().diff(sent_at));
-    const hours = duration.asHours();
-    return hours >= 24 ? moment(sent_at).format('MMM H') : moment(sent_at).format('h:mma');
+    const emailDate = new Date(sent_at);
+    const now = new Date();
+    return moment(sent_at).format(emailDate.getDate() === now.getDate() ? 'h:mm A' : 'MMM D'); 
   };
 
   return (
@@ -42,7 +42,7 @@ const EmailListItem = ({
         </div>
         <div className="email-list-item__subject">
           <div className="heading">{subject}</div>
-          <div className={!is_read ? 'email-list-item__unread-dot' : ''} />
+          <div className="email-list-item__unread-dot" />
         </div>
       </div>
       <div className="email-list-item__attachment">
