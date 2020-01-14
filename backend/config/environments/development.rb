@@ -53,5 +53,5 @@ Rails.application.configure do
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
-  config.action_cable.allowed_request_origins = [ 'chrome-extension://nabhjobcoipfcobhillljogpjkflplnn', 'http://localhost:3001' ]
+  config.action_cable.allowed_request_origins = [ 'chrome-extension://lbgffapchdggeblajjekllhjjdbgmkjl', 'chrome-extension://nabhjobcoipfcobhillljogpjkflplnn', 'http://localhost:3001' ]
 end
