@@ -7,7 +7,6 @@ import EmailClient from './emails/EmailClient';
 import Hero from './landing/Hero';
 import Header from './landing/Header'
 
-
 const DontAtMe = (props) => { 
   const { id } = useParams();
   const [ address, setAddress ] = useState(id || '');
@@ -91,6 +90,7 @@ const DontAtMe = (props) => {
         setIsLoading={setIsLoading}
         isLoading={isLoading}
       />
+      <div className='DontAtMe__wave'></div>
     </div>
   );
 };

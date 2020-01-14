@@ -9,7 +9,7 @@ const Hero = ({ address }) => {
   
   return(
     <section className='hero'>
-      <h1 className='hero__tagline'>Practice safe emails...<br/>Use a burner</h1>
+      <h1 className='hero__tagline'>Protect your email.<br/>Use a burner.</h1>
       <div className='hero__cta'>
         <input className='hero__cta-input' ref={addressRef} value={address+'@dontatme.ca'} readOnly />
         <button className='hero__cta-btn' onClick={copyToClipboard}>Copy</button>
