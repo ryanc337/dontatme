@@ -44,7 +44,7 @@ const EmailListItem = ({
         </div>
         <div className="email-list-item__subject">
           <div className="heading">{subject}</div>
-          <div className={!is_read ? 'email-list-item__unread-dot' : ''} />
+          <div className="email-list-item__unread-dot" />
         </div>
       </div>
       <div className="email-list-item__attachment">
