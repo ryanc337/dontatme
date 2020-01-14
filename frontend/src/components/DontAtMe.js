@@ -80,7 +80,11 @@ const DontAtMe = (props) => {
 
   return (
     <div className="DontAtMe">
-      {alert.show && <Alert alert={alert} closeAlert={closeAlert} />}
+      {alert.show && <Alert 
+      message={alert.message} 
+      closeAlert={closeAlert}
+      color={alert.color} 
+      />}
       <Header />
       <Hero address={address} />
       <EmailClient
