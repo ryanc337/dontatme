@@ -6,10 +6,12 @@ import EmailEmpty from './EmailEmpty';
 import EmailList from './EmailList';
 import EmailItem from './EmailItem';
 
-const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading, isLoading }) => { 
-  const [ focusPanel, setFocusPanel ] = useState("list");
-  const [ focusId, setFocusId ] = useState(null);
-  const [ fetchedEmails, setFetchedEmails ] = useState({});
+const EmailClient = ({
+  allEmails, address, setAlert, setAllEmails, setIsLoading, isLoading,
+}) => {
+  const [focusPanel, setFocusPanel] = useState('list');
+  const [focusId, setFocusId] = useState(null);
+  const [fetchedEmails, setFetchedEmails] = useState({});
 
   const deleteEmailWithId = async () => {
     try {
@@ -22,19 +24,19 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
       setFocusId(null);
 
       if (deletedEmail) {
-        setFetchedEmails(prevState => {
+        setFetchedEmails((prevState) => {
           const { prevFocusId, ...rest } = prevState;
           return rest;
         });
 
-        setAllEmails(prevState => prevState.filter(email => email.id !== prevFocusId));
+        setAllEmails((prevState) => prevState.filter((email) => email.id !== prevFocusId));
       }
     } catch (error) {
       setAlert({
         color: 'red',
         show: true,
-        message: 'Unable to delete email. Please try again.'
-      })
+        message: 'Unable to delete email. Please try again.',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -44,52 +46,50 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
     const getParsedEmail = async () => {
       const rawEmail = await getRawEmail(address, focusId);
       const parsedEmail = await simpleParser(rawEmail);
-      setFetchedEmails(prevState => ({ 
+      setFetchedEmails((prevState) => ({
         ...prevState,
-        [focusId]: parsedEmail
+        [focusId]: parsedEmail,
       }));
     };
 
     const readEmail = (address, focusId) => {
       try {
-        setAllEmails(prevState => prevState.map(email => {
-          return email.id === focusId ? { ...email, is_read: true } : email
-        }))
-        updateEmailIsRead(address, focusId)
+        setAllEmails((prevState) => prevState.map((email) => (email.id === focusId ? { ...email, is_read: true } : email)));
+        updateEmailIsRead(address, focusId);
       } catch (error) {
         // Fail silently
       }
-    }
+    };
 
     const openEmail = async () => {
       setIsLoading(true);
       try {
-        await getParsedEmail()
-        readEmail(address, focusId)
+        await getParsedEmail();
+        readEmail(address, focusId);
       } catch (error) {
         setAlert({
           color: 'red',
           show: true,
-          message: 'Unable to load email. Please refresh page.'
+          message: 'Unable to load email. Please refresh page.',
         });
       } finally {
         setIsLoading(false);
       }
-    }
+    };
 
     if (focusId) {
-      openEmail()
+      openEmail();
     }
   }, [address, focusId]);
 
   const getFrom = (allEmails, id) => {
-    const email = allEmails.find((email) => email.id === id)
+    const email = allEmails.find((email) => email.id === id);
     const from = JSON.parse(email.from);
-    return from[0].name
-  }
-  
+    return from[0].name;
+  };
+
   return (
-    <div className={`email-client email-client${focusPanel === "list" ? "__list" : '__email'}`}>
+    <div className={`email-client email-client${focusPanel === 'list' ? '__list' : '__email'}`}>
       <EmailList
         setFocusPanel={setFocusPanel}
         setFocusId={setFocusId}
@@ -99,12 +99,12 @@ const EmailClient = ({ allEmails, address, setAlert, setAllEmails, setIsLoading,
       />
 
       {fetchedEmails[focusId] ? (
-        <EmailItem 
+        <EmailItem
           from={getFrom(allEmails, focusId)}
-          email={fetchedEmails[focusId]} 
+          email={fetchedEmails[focusId]}
           deleteEmailWithId={deleteEmailWithId}
-          setFocusPanel={setFocusPanel} 
-          focusPanel={focusPanel} 
+          setFocusPanel={setFocusPanel}
+          focusPanel={focusPanel}
         />
       ) : <EmailEmpty />}
 

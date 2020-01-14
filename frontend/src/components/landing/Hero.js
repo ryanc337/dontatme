@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef } from 'react';
 
 const Hero = ({ address }) => {
   const addressRef = useRef(null);
@@ -15,7 +15,7 @@ const Hero = ({ address }) => {
         <button className='hero__cta-btn' onClick={copyToClipboard}>Copy</button>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default Hero;

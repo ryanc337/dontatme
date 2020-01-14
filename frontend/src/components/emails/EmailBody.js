@@ -1,14 +1,12 @@
 import React from 'react';
 
-const EmailBody = ({ html }) => {
-  return(
-    <article className="email-body">
-      <p dangerouslySetInnerHTML={{
-        __html: html
-      }}>
-      </p>
-    </article>
-  );
-}
+const EmailBody = ({ html }) => (
+  <article className="email-body">
+    <p dangerouslySetInnerHTML={{
+      __html: html,
+    }}
+    />
+  </article>
+);
 
 export default EmailBody;

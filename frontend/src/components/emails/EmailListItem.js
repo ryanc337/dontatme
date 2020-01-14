@@ -2,24 +2,34 @@ import React from 'react';
 import moment from 'moment';
 import { ReactComponent as Paperclip } from '../../assets/paperclip.svg';
 
-const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
-  const { from, sent_at, subject, body, has_attachments, id, is_read } = email;
-  const senderName = JSON.parse(from)[0].name
-  const handleClick = (id) => {
-    setFocusId(id);
+const EmailListItem = ({
+  email, setFocusPanel, setFocusId, focusId,
+}) => {
+  const {
+    from, sent_at, subject, body, has_attachments, id, is_read,
+  } = email;
+  const senderName = JSON.parse(from)[0].name;
+  const handleClick = (idToFocus) => {
+    setFocusId(idToFocus);
     setFocusPanel('email');
-  }
+  };
 
   const className = () => {
     let classNameString = 'email-list-item';
-    focusId === id && (classNameString += ' email-list-item__selected');
-    is_read && (classNameString += ' email-list-item__read');
+    classNameString += (focusId === id ? ' email-list-item__selected' : '');
+    classNameString += (is_read ? ' email-list-item__read' : '');
     return classNameString;
-  } 
-//TODO: change moment format so that it will format based on time ago
+  };
+
+  const formatTime = () => {
+    const emailDate = new Date(sent_at);
+    const now = new Date();
+    return moment(sent_at).format(emailDate.getDate() === now.getDate() ? 'h:mm A' : 'MMM D'); 
+  };
+
   return (
     <div
-      className={className()} 
+      className={className()}
       onClick={() => handleClick(email.id)}
     >
       <div className="email-list-item__initial-container">
@@ -28,12 +38,12 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
       <div>
         <div className="email-list-item__sender-data">
           <span>{senderName}</span>
-          <span>{moment(sent_at).format("h:mm A")}</span>
+          <span>{formatTime()}</span>
         </div>
-      <div className="email-list-item__subject">
-        <div className="heading">{subject}</div>
-        <div className="email-list-item__unread-dot"></div>
-      </div>
+        <div className="email-list-item__subject">
+          <div className="heading">{subject}</div>
+          <div className="email-list-item__unread-dot" />
+        </div>
       </div>
       <div className="email-list-item__attachment">
         {has_attachments && <Paperclip />}
@@ -41,6 +51,6 @@ const EmailListItem = ({ email, setFocusPanel, setFocusId, focusId }) => {
       <div className="email-list-item__body-preview">{`${body}...`}</div>
     </div>
   );
-}
+};
 
 export default EmailListItem;

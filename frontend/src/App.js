@@ -1,26 +1,24 @@
 import React from 'react';
-import './vendor/normalize-v8.0.1.css'
-import './styles/index.scss'
-import DontAtMe from './components/DontAtMe';
+import './vendor/normalize-v8.0.1.css';
+import './styles/index.scss';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
 } from 'react-router-dom';
+import DontAtMe from './components/DontAtMe';
 
-const App = () => {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path='/'>
-          <DontAtMe />
-        </Route>
-        <Route path='/:id'>
-          <DontAtMe />
-        </Route>
-      </Switch>
-    </Router>
-  );
-}
+const App = () => (
+  <Router>
+    <Switch>
+      <Route exact path="/">
+        <DontAtMe />
+      </Route>
+      <Route path="/:id">
+        <DontAtMe />
+      </Route>
+    </Switch>
+  </Router>
+);
 
 export default App;
