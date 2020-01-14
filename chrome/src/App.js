@@ -1,6 +1,6 @@
 import React from 'react';
 import './vendor/normalize-8.0.1.css';
-import './App.css';
+import './App.scss';
 import EmailClient from './components/emails/EmailClient';
 
 function App({ address }) {

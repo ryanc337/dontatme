@@ -4,9 +4,9 @@ import EmailList from './EmailList';
 import ActionCable from 'actioncable';
 import { getAddress, getEmails, getRawEmail, deleteEmail, updateEmailIsRead } from '../../api';
 import Alert from '../layout/Alert';
-import Loading from '../layout/Loading';
 import EmailItem from './EmailItem';
 import EmailEmpty from './EmailEmpty';
+import EmailLoading from './EmailLoading';
 
 const EmailClient = (props) => {
   const [ address, setAddress ] = useState(props.address || '');
@@ -160,26 +160,27 @@ const EmailClient = (props) => {
         closeAlert={() => setAlert(prevState => ({ ...prevState, show: false }))}
       />}
 
-      {isLoading && <Loading />}
+      {isLoading && <EmailLoading />}
 
       <div>{address}</div>
-
+    <div className='email-client-container'>
       <EmailList 
-      allEmails={allEmails}
-      focusId={focusId}
-      setFocusId={setFocusId}
-      setFocusPanet={setFocusPanel}
-      focusPanel={focusPanel}
-      />
+        allEmails={allEmails}
+        focusId={focusId}
+        setFocusId={setFocusId}
+        setFocusPanet={setFocusPanel}
+        focusPanel={focusPanel}
+        />
 
       {fetchedEmails[focusId] ? (
-        <EmailItem
-          from={getFrom(allEmails, focusId)}
-          email={fetchedEmails[focusId]}
-          deleteEmailWithId={deleteEmailWithId}
-          setFocusPanel={setFocusPanel}
-        />
+      <EmailItem
+        from={getFrom(allEmails, focusId)}
+        email={fetchedEmails[focusId]}
+        deleteEmailWithId={deleteEmailWithId}
+        setFocusPanel={setFocusPanel}
+      />
       ) : <EmailEmpty />}
+    </div>
     </div>
   );
 };
