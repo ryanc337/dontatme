@@ -7,7 +7,7 @@ import EmailList from './EmailList';
 import EmailItem from './EmailItem';
 
 const EmailClient = ({
-  allEmails, address, setAlert, setAllEmails, setIsLoading, isLoading,
+  allEmails, address, setAlert, setAllEmails, setIsLoading, isLoading, iconColors
 }) => {
   const [focusPanel, setFocusPanel] = useState('list');
   const [focusId, setFocusId] = useState(null);
@@ -85,7 +85,7 @@ const EmailClient = ({
   const getFrom = (allEmails, id) => {
     const email = allEmails.find((email) => email.id === id);
     const from = JSON.parse(email.from);
-    return from[0].name;
+    return from[0];
   };
 
   return (
@@ -96,6 +96,7 @@ const EmailClient = ({
         allEmails={allEmails}
         focusPanel={focusPanel}
         focusId={focusId}
+        iconColors={iconColors}
       />
 
       {fetchedEmails[focusId] ? (
@@ -105,6 +106,7 @@ const EmailClient = ({
           deleteEmailWithId={deleteEmailWithId}
           setFocusPanel={setFocusPanel}
           focusPanel={focusPanel}
+          iconColors={iconColors}
         />
       ) : <EmailEmpty />}
 

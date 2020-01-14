@@ -4,7 +4,7 @@ import Email from './Email';
 import EmailItemHeader from './EmailItemHeader';
 
 const EmailItem = ({
-  setFocusPanel, email, deleteEmailWithId, from,
+  setFocusPanel, email, deleteEmailWithId, from, iconColors
 }) => {
   const { attachments, html } = email;
   const cleanedHtml = sanitizeHTML(html);
@@ -13,6 +13,7 @@ const EmailItem = ({
     <div className="email-item">
       <EmailItemHeader
         from={from}
+        iconColors={iconColors}
         setFocusPanel={setFocusPanel}
         deleteEmailWithId={deleteEmailWithId}
       />

@@ -3,7 +3,7 @@ import EmailListItem from './EmailListItem';
 import EmailListHeader from './EmailListHeader';
 
 const EmailList = ({
-  allEmails, setFocusPanel, setFocusId, focusId,
+  allEmails, setFocusPanel, setFocusId, focusId, iconColors
 }) => (
   <div className="email-list">
     <EmailListHeader />
@@ -15,6 +15,7 @@ const EmailList = ({
           focusId={focusId}
           key={email.id}
           email={email}
+          iconColors={iconColors}
         />
       ))}
     </div>
