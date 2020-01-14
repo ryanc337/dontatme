@@ -18,7 +18,7 @@ html {
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: rgb(22, 40, 104);
+  background-color: #FAFAFD;
   color: $font-color-main;
   font-size: 16px;
 }
@@ -26,6 +26,21 @@ body {
 a, a:visited {
   text-decoration: none;
   color: inherit;
+}
+
+.DontAtMe {
+  background-image: url(../assets/background.svg);
+  background-size: cover;
+  position: relative;
+
+  &__wave {
+    position: absolute;
+    height: 35vh;
+    width: 100%;
+    bottom: 0;
+    background-image: url(../assets/white-wave.svg);
+    background-size: cover;
+  }
 }
 
 .email-client {
@@ -38,6 +53,7 @@ a, a:visited {
   grid-template-columns: 391px 1fr;
   position: relative;
   box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.2);
+  z-index: 100;
 }
 
 .email-list {
@@ -225,15 +241,15 @@ a, a:visited {
     font-family: 'Roboto', sans-serif;
     font-size: 70px;
     font-weight: 700;
-    line-height: 82px;
-    margin: 48px 0;    
+    line-height: 90px;
+    margin: 36px 0;    
   }
 
   &__cta {
     background-color: $white;
     height: 62px;
     width: 480px;
-    margin: 48px auto;
+    margin: 40px auto 64px auto;
     border-radius: 100px;
     display: grid;
     grid-template-columns: 1fr auto;
