@@ -1,14 +1,16 @@
 import React from 'react';
 import moment from 'moment';
-import { ReactComponent as Paperclip } from '../../assets/paperclip.svg';
+import { ReactComponent as Paperclip } from '../../images/paperclip.svg';
 
 const EmailListItem = ({
-  email, setFocusPanel, setFocusId, focusId,
+  email, setFocusId, setFocusPanel, focusId, has_attachments
 }) => {
   const {
-    from, sent_at, subject, body, has_attachments, id, is_read,
+    from, sent_at, subject, body, id, is_read,
   } = email;
+
   const senderName = JSON.parse(from)[0].name;
+
   const handleClick = (idToFocus) => {
     setFocusId(idToFocus);
     setFocusPanel('email');

@@ -1,17 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { simpleParser } from 'mailparser';
+import EmailList from './EmailList';
 import ActionCable from 'actioncable';
-import { getAddress, getEmails } from '../../api';
+import { getAddress, getEmails, getRawEmail, deleteEmail, updateEmailIsRead } from '../../api';
 import Alert from '../layout/Alert';
 import Loading from '../layout/Loading';
+import EmailItem from './EmailItem';
+import EmailEmpty from './EmailEmpty';
 
 const EmailClient = (props) => {
   const [ address, setAddress ] = useState(props.address || '');
   const [ allEmails, setAllEmails ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ alert, setAlert ] = useState({ show: false, color: 'red', message: '' });
-  // const [ focusPanel, setFocusPanel ] = useState("list");
-  // const [ focusId, setFocusId ] = useState(null);
-  // const [ fetchedEmails, setFetchedEmails ] = useState({});
+  const [ focusPanel, setFocusPanel ] = useState("list");
+  const [ focusId, setFocusId ] = useState(null);
+  const [ fetchedEmails, setFetchedEmails ] = useState({});
   const cable = useRef();
 
   /* global chrome */ 
@@ -73,6 +77,81 @@ const EmailClient = (props) => {
     }
   }, [address]);
 
+  useEffect(() => {
+    const getParsedEmail = async () => {
+      const rawEmail = await getRawEmail(address, focusId);
+      const parsedEmail = await simpleParser(rawEmail);
+      setFetchedEmails((prevState) => ({
+        ...prevState,
+        [focusId]: parsedEmail,
+      }));
+    };
+
+    const readEmail = (address, focusId) => {
+      try {
+        setAllEmails((prevState) => prevState.map((email) => (email.id === focusId ? { ...email, is_read: true } : email)));
+        updateEmailIsRead(address, focusId);
+      } catch (error) {
+        // Fail silently
+      }
+    };
+
+    const openEmail = async () => {
+      setIsLoading(true);
+      try {
+        await getParsedEmail();
+        readEmail(address, focusId);
+      } catch (error) {
+        setAlert({
+          color: 'red',
+          show: true,
+          message: 'Unable to load email. Please refresh page.',
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (focusId) {
+      openEmail();
+    }
+  }, [address, focusId]);
+
+  const getFrom = (allEmails, id) => {
+    const email = allEmails.find((email) => email.id === id);
+    const from = JSON.parse(email.from);
+    return from[0].name;
+  };
+
+  const deleteEmailWithId = async () => {
+    try {
+      setIsLoading(true);
+
+      const prevFocusId = focusId;
+
+      const deletedEmail = await deleteEmail(address, prevFocusId);
+
+      setFocusId(null);
+
+      if (deletedEmail) {
+        setFetchedEmails((prevState) => {
+          const { prevFocusId, ...rest } = prevState;
+          return rest;
+        });
+
+        setAllEmails((prevState) => prevState.filter((email) => email.id !== prevFocusId));
+      }
+    } catch (error) {
+      setAlert({
+        color: 'red',
+        show: true,
+        message: 'Unable to delete email. Please try again.',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div>
       {alert.show && <Alert 
@@ -80,9 +159,27 @@ const EmailClient = (props) => {
         color={alert.color}
         closeAlert={() => setAlert(prevState => ({ ...prevState, show: false }))}
       />}
+
       {isLoading && <Loading />}
+
       <div>{address}</div>
-      { allEmails.map((email, i) => (<div key={i}>{JSON.stringify(email)}</div>)) }
+
+      <EmailList 
+      allEmails={allEmails}
+      focusId={focusId}
+      setFocusId={setFocusId}
+      setFocusPanet={setFocusPanel}
+      focusPanel={focusPanel}
+      />
+
+      {fetchedEmails[focusId] ? (
+        <EmailItem
+          from={getFrom(allEmails, focusId)}
+          email={fetchedEmails[focusId]}
+          deleteEmailWithId={deleteEmailWithId}
+          setFocusPanel={setFocusPanel}
+        />
+      ) : <EmailEmpty />}
     </div>
   );
 };
