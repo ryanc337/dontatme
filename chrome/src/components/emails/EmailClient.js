@@ -1,89 +1,70 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { simpleParser } from 'mailparser';
-import EmailList from './EmailList';
-import ActionCable from 'actioncable';
-import { getAddress, getEmails, getRawEmail, deleteEmail, updateEmailIsRead } from '../../api';
-import Alert from '../layout/Alert';
-import EmailItem from './EmailItem';
-import EmailEmpty from './EmailEmpty';
+import React, { useState, useEffect } from 'react';
+import { getRawEmail, deleteEmail, updateEmailIsRead } from '../../api/index';
 import EmailLoading from './EmailLoading';
+import EmailEmpty from './EmailEmpty';
+import EmailList from './EmailList';
+import EmailItem from './EmailItem';
 
-const EmailClient = (props) => {
-  const [ address, setAddress ] = useState(props.address || '');
-  const [ allEmails, setAllEmails ] = useState([]);
-  const [ isLoading, setIsLoading ] = useState(false);
-  const [ alert, setAlert ] = useState({ show: false, color: 'red', message: '' });
-  const [ focusPanel, setFocusPanel ] = useState("list");
-  const [ focusId, setFocusId ] = useState(null);
-  const [ fetchedEmails, setFetchedEmails ] = useState({});
-  const cable = useRef();
+const EmailClient = ({
+  allEmails, 
+  address, 
+  setAlert, 
+  setAllEmails, 
+  setIsLoading, 
+  isLoading, 
+  focusId, 
+  setFocusId,
+  iconColors
+}) => {
+  const [focusPanel, setFocusPanel] = useState('list');
+  const [fetchedEmails, setFetchedEmails] = useState({});
 
-  /* global chrome */ 
-  useEffect(() => {
-    const fetchEmails = async (id) => {
-      const fetchedEmails = await getEmails(id);
-      setAllEmails(fetchedEmails.emails);
-    };
-
-    const fetchAddress = async () => {
-      const fetchedAddress = await getAddress();
-      chrome.storage.local.set({ address: fetchedAddress.address });
-      setAddress(fetchedAddress.address);
-    };
-    
-    const tryFetchData = async (fn, errorMsg) => {
-      try {
-        setIsLoading(true);
-        await fn();
-      } catch (error) {
-        setAlert({
-          color: 'red',
-          show: true,
-          message: errorMsg
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (address) {
-      tryFetchData(() => fetchEmails(address), 'Unable to get emails. Please refresh page.');
+  const getNextEmailIndex = (emails, prevFocusId) => {
+    const oldIndex = emails.findIndex((email) => email.id === prevFocusId);
+    if (emails.length === 1) {
+      return null;
     } else {
-      tryFetchData(fetchAddress, 'Unable to load. Please refresh page.');
+      return emails[oldIndex + 1] ? emails[oldIndex + 1].id : emails[0].id
     }
-  }, []);
+  }
 
-  useEffect(() => {
-    cable.current = ActionCable.createConsumer(process.env.REACT_APP_URL + '/cable');
-  }, []);
+  const deleteEmailWithId = async () => {
+    try {
+      setIsLoading(true);
 
-  useEffect(() => {
-    if (address) {
-      const connection = cable.current;
-      
-      const subscriptionParams = {
-        id: address,
-        channel: 'EmailsChannel'
-      };
-  
-      const subscriptionListeners = {
-        received(data) {
-          const jsonEmail = JSON.parse(data.email);
-          setAllEmails(prevState => [...prevState, jsonEmail]);
-        }
-      };
-  
-      connection.subscriptions.create(subscriptionParams, subscriptionListeners);
+      const prevFocusId = focusId;
+
+      const deletedEmail = await deleteEmail(address, prevFocusId);
+
+      if (deletedEmail) {
+        const nextEmailId = getNextEmailIndex(allEmails, prevFocusId);
+
+        setFetchedEmails((prevState) => {
+          const { prevFocusId, ...rest } = prevState;
+          return rest;
+        });
+
+        setAllEmails((prevState) => prevState.filter((email) => email.id !== prevFocusId));
+
+        setFocusId(nextEmailId);
+      }
+    } catch (error) {
+      setAlert({
+        color: 'red',
+        show: true,
+        message: 'Unable to delete email. Please try again.',
+      });
+    } finally {
+      setIsLoading(false);
     }
-  }, [address]);
+  };
 
   useEffect(() => {
     const getParsedEmail = async () => {
       const rawEmail = await getRawEmail(address, focusId);
-      const parsedEmail = await simpleParser(rawEmail);
       setFetchedEmails((prevState) => ({
         ...prevState,
-        [focusId]: parsedEmail,
+        [focusId]: rawEmail,
       }));
     };
 
@@ -97,7 +78,7 @@ const EmailClient = (props) => {
     };
 
     const openEmail = async () => {
-      setIsLoading(true);
+      setIsLoading(true)
       try {
         await getParsedEmail();
         readEmail(address, focusId);
@@ -114,72 +95,45 @@ const EmailClient = (props) => {
 
     if (focusId) {
       openEmail();
-    }
+    } 
+
   }, [address, focusId]);
 
-  const getFrom = (allEmails, id) => {
-    const email = allEmails.find((email) => email.id === id);
+  const focusedEmail = () => {
+    return allEmails.find((email) => email.id === focusId)
+  }
+
+  const getFrom = () => {
+    const email = focusedEmail();
     const from = JSON.parse(email.from);
-    return from[0].name;
-  };
-
-  const deleteEmailWithId = async () => {
-    try {
-      setIsLoading(true);
-
-      const prevFocusId = focusId;
-
-      const deletedEmail = await deleteEmail(address, prevFocusId);
-
-      setFocusId(null);
-
-      if (deletedEmail) {
-        setFetchedEmails((prevState) => {
-          const { prevFocusId, ...rest } = prevState;
-          return rest;
-        });
-
-        setAllEmails((prevState) => prevState.filter((email) => email.id !== prevFocusId));
-      }
-    } catch (error) {
-      setAlert({
-        color: 'red',
-        show: true,
-        message: 'Unable to delete email. Please try again.',
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    return from[0];
   };
 
   return (
     <div className={`email-client email-client${focusPanel === 'list' ? '__list' : '__email'}`}>
       <EmailList
-        allEmails={allEmails}
-        focusId={focusId}
+        setFocusPanel={setFocusPanel}
         setFocusId={setFocusId}
-        setFocusPanet={setFocusPanel}
+        allEmails={allEmails}
         focusPanel={focusPanel}
-        address={address}
+        focusId={focusId}
+        iconColors={iconColors}
       />
 
-      {fetchedEmails[focusId] ? (
-      <EmailItem
-        from={getFrom(allEmails, focusId)}
-        email={fetchedEmails[focusId]}
-        deleteEmailWithId={deleteEmailWithId}
-        setFocusPanel={setFocusPanel}
-      />
+      {fetchedEmails[focusId] && focusedEmail() ? (
+        <EmailItem
+          from={getFrom(allEmails, focusId)}
+          email={fetchedEmails[focusId]}
+          deleteEmailWithId={deleteEmailWithId}
+          setFocusPanel={setFocusPanel}
+          focusPanel={focusPanel}
+          iconColors={iconColors}
+        />
       ) : <EmailEmpty />}
 
-      {alert.show && <Alert 
-        message={alert.message}
-        color={alert.color}
-        closeAlert={() => setAlert(prevState => ({ ...prevState, show: false }))}
-      />}
       {isLoading && <EmailLoading />}
     </div>
   );
 };
 
-export default EmailClient
+export default EmailClient;
