@@ -40,7 +40,7 @@ const EmailListItem = ({
       onClick={() => handleClick(email.id)}
     >
       <div className="email-list-item__initial-container">
-        <div className="initial-circle" style={style}>{senderName[0]}</div>
+        <div className="initial-circle" style={style}>{senderName[0].toUpperCase()}</div>
       </div>
       <div>
         <div className="email-list-item__sender-data">
