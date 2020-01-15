@@ -18,13 +18,12 @@ const EmailClient = ({
   const [focusPanel, setFocusPanel] = useState('list');
   const [fetchedEmails, setFetchedEmails] = useState({});
 
-  const focusNextEmail = (emails, id) => {
+  const getNextEmailIndex = (emails, prevFocusId) => {
+    const oldIndex = emails.findIndex((email) => email.id === prevFocusId);
     if (emails.length === 1) {
-      setFocusId(null);
+      return null;
     } else {
-      const findIndexOfEmailToFocus = (email) => email.id === id;
-      const indexToFocus = emails.findIndex(findIndexOfEmailToFocus);
-      return emails[indexToFocus + 1] ? emails[indexToFocus + 1].id : emails[0].id
+      return emails[oldIndex + 1] ? emails[oldIndex + 1].id : emails[0].id
     }
   }
 
@@ -36,15 +35,17 @@ const EmailClient = ({
 
       const deletedEmail = await deleteEmail(address, prevFocusId);
 
-      setFocusId(() => focusNextEmail(allEmails, prevFocusId));
-
       if (deletedEmail) {
+        const nextEmailId = getNextEmailIndex(allEmails, prevFocusId);
+
         setFetchedEmails((prevState) => {
           const { prevFocusId, ...rest } = prevState;
           return rest;
         });
 
         setAllEmails((prevState) => prevState.filter((email) => email.id !== prevFocusId));
+
+        setFocusId(nextEmailId);
       }
     } catch (error) {
       setAlert({
@@ -52,6 +53,8 @@ const EmailClient = ({
         show: true,
         message: 'Unable to delete email. Please try again.',
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -74,8 +77,8 @@ const EmailClient = ({
     };
 
     const openEmail = async () => {
+      setIsLoading(true)
       try {
-        setIsLoading(true)
         await getParsedEmail();
         readEmail(address, focusId);
       } catch (error) {
@@ -95,8 +98,12 @@ const EmailClient = ({
 
   }, [address, focusId]);
 
-  const getFrom = (allEmails, id) => {
-    const email = allEmails.find((email) => email.id === id);
+  const focusedEmail = () => {
+    return allEmails.find((email) => email.id === focusId)
+  }
+
+  const getFrom = () => {
+    const email = focusedEmail();
     const from = JSON.parse(email.from);
     return from[0].name;
   };
@@ -111,7 +118,7 @@ const EmailClient = ({
         focusId={focusId}
       />
 
-      {fetchedEmails[focusId] ? (
+      {fetchedEmails[focusId] && focusedEmail() ? (
         <EmailItem
           from={getFrom(allEmails, focusId)}
           email={fetchedEmails[focusId]}

@@ -49,7 +49,9 @@ const DontAtMe = () => {
     const fetchEmails = async (idParams) => {
       const fetchedEmails = await getEmails(idParams);
       setAllEmails(fetchedEmails.emails);
-      setFocusId(fetchedEmails.emails[0].id);
+      if (fetchedEmails.emails.length > 0) {
+        setFocusId(fetchedEmails.emails[0].id);
+      }
     };
 
     const fetchAddress = async () => {
