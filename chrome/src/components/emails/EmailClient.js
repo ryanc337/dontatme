@@ -153,24 +153,15 @@ const EmailClient = (props) => {
   };
 
   return (
-    <div>
-      {alert.show && <Alert 
-        message={alert.message}
-        color={alert.color}
-        closeAlert={() => setAlert(prevState => ({ ...prevState, show: false }))}
-      />}
-
-      {isLoading && <EmailLoading />}
-
-      <div>{address}</div>
-    <div className='email-client-container'>
-      <EmailList 
+    <div className={`email-client email-client${focusPanel === 'list' ? '__list' : '__email'}`}>
+      <EmailList
         allEmails={allEmails}
         focusId={focusId}
         setFocusId={setFocusId}
         setFocusPanet={setFocusPanel}
         focusPanel={focusPanel}
-        />
+        address={address}
+      />
 
       {fetchedEmails[focusId] ? (
       <EmailItem
@@ -180,7 +171,13 @@ const EmailClient = (props) => {
         setFocusPanel={setFocusPanel}
       />
       ) : <EmailEmpty />}
-    </div>
+
+      {alert.show && <Alert 
+        message={alert.message}
+        color={alert.color}
+        closeAlert={() => setAlert(prevState => ({ ...prevState, show: false }))}
+      />}
+      {isLoading && <EmailLoading />}
     </div>
   );
 };
