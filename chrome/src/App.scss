@@ -77,6 +77,7 @@ a, a:visited {
   display: grid;
   align-items: center;
   justify-items: start;
+  grid-template-columns: auto auto;
 
   &__address-id {
     background-color: #F1F1F4;
@@ -92,6 +93,22 @@ a, a:visited {
     color: $font-color-main;
     outline: none;
     text-align: center;
+  }
+
+  &__copy {
+    display: grid;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      g {
+        stroke: #FF3465;
+      }
+    }
+  
+    g {
+      stroke: #ff6b91;
+    }
   }
 }
 
