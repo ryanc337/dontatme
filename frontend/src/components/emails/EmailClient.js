@@ -13,7 +13,8 @@ const EmailClient = ({
   setIsLoading, 
   isLoading, 
   focusId, 
-  setFocusId, 
+  setFocusId,
+  iconColors
 }) => {
   const [focusPanel, setFocusPanel] = useState('list');
   const [fetchedEmails, setFetchedEmails] = useState({});
@@ -105,7 +106,7 @@ const EmailClient = ({
   const getFrom = () => {
     const email = focusedEmail();
     const from = JSON.parse(email.from);
-    return from[0].name;
+    return from[0];
   };
 
   return (
@@ -116,6 +117,7 @@ const EmailClient = ({
         allEmails={allEmails}
         focusPanel={focusPanel}
         focusId={focusId}
+        iconColors={iconColors}
       />
 
       {fetchedEmails[focusId] && focusedEmail() ? (
@@ -125,6 +127,7 @@ const EmailClient = ({
           deleteEmailWithId={deleteEmailWithId}
           setFocusPanel={setFocusPanel}
           focusPanel={focusPanel}
+          iconColors={iconColors}
         />
       ) : <EmailEmpty />}
 

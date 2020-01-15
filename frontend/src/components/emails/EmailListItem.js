@@ -3,16 +3,23 @@ import moment from 'moment';
 import { ReactComponent as Paperclip } from '../../assets/paperclip.svg';
 
 const EmailListItem = ({
-  email, setFocusPanel, setFocusId, focusId,
+  email, setFocusPanel, setFocusId, focusId, iconColors
 }) => {
+  
   const {
     from, sent_at, subject, body, has_attachments, id, is_read,
   } = email;
-  const senderName = JSON.parse(from)[0].name;
+  
   const handleClick = (idToFocus) => {
     setFocusId(idToFocus);
     setFocusPanel('email');
   };
+
+  const sender = JSON.parse(from)[0];
+  const senderName = sender.name;
+  const style = {
+    backgroundColor: `${iconColors[sender.address]}`
+  }
 
   const className = () => {
     let classNameString = 'email-list-item';
@@ -33,7 +40,7 @@ const EmailListItem = ({
       onClick={() => handleClick(email.id)}
     >
       <div className="email-list-item__initial-container">
-        <div className="initial-circle">{senderName[0]}</div>
+        <div className="initial-circle" style={style}>{senderName[0]}</div>
       </div>
       <div>
         <div className="email-list-item__sender-data">

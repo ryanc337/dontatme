@@ -6,6 +6,7 @@ import Alert from './layout/Alert';
 import EmailClient from './emails/EmailClient';
 import Hero from './landing/Hero';
 import Header from './landing/Header';
+import getColor from '../lib/getColor';
 
 const DontAtMe = () => {
   const { id } = useParams();
@@ -20,6 +21,22 @@ const DontAtMe = () => {
     message: '',
   });
   const cable = useRef();
+  const [iconColors, setIconColors] = useState({});
+
+  useEffect(() => {    
+    const updateColors = allEmails.reduce((newColors, email) => {
+      const emailAddress = JSON.parse(email.from)[0].address;
+      
+      if (newColors[emailAddress]) {
+        return newColors;
+      } else {
+        const color = getColor(Object.keys(newColors).length);
+        return {...newColors, [emailAddress]: color};
+      }
+    }, {...iconColors});
+
+    setIconColors(updateColors);
+  }, [allEmails]);
 
   useEffect(() => {
     cable.current = ActionCable.createConsumer(`${process.env.REACT_APP_URL}/cable`);
@@ -99,6 +116,7 @@ const DontAtMe = () => {
         setAlert={setAlert}
         setIsLoading={setIsLoading}
         isLoading={isLoading}
+        iconColors={iconColors}
         focusId={focusId}
         setFocusId={setFocusId}
       />
