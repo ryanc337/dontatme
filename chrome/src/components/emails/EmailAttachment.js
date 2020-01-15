@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as Attachment } from '../../images/attachment.svg';
+import { ReactComponent as Attachment } from '../../assets/attachment.svg';
 
 const EmailAttachment = ({ attachment }) => {
   const convertAttachment = () => window.URL.createObjectURL(new Blob([new Uint8Array(attachment.content.data)], { type: `${attachment.contentType}` }));
