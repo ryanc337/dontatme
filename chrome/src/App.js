@@ -1,11 +1,11 @@
 import React from 'react';
 import './vendor/normalize-8.0.1.css';
 import './App.scss';
-import EmailClient from './components/emails/EmailClient';
+import DontAtMe from './components/DontAtMe';
 
 function App({ address }) {
   return (
-    <EmailClient address={address} />
+    <DontAtMe addressId={address} />
   );
 }
 
