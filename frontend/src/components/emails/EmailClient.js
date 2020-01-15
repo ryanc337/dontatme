@@ -23,7 +23,12 @@ const EmailClient = ({
     if (emails.length === 1) {
       return null;
     } else {
+<<<<<<< HEAD
       return emails[oldIndex + 1] ? emails[oldIndex + 1].id : emails[0].id
+=======
+      const indexToFocus = emails.findIndex((email) => email.id === id);
+      return emails[indexToFocus + 1] ? emails[indexToFocus + 1].id : emails[0].id
+>>>>>>> a6bf04313e6ce2ed7ceb84ad2e834e3839e37dcc
     }
   }
 
