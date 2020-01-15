@@ -9,7 +9,7 @@ class EmailsController < ApplicationController
 
   def show
     bucket = Rails.application.credentials.aws[:bucket]
-    key = @email.storage_url
+    key = "#{@email.storage_url}.json"
 
     obj = Aws::S3::Object.new(bucket, key)
     signed_url = obj.presigned_url(:get, expires_in: 900)

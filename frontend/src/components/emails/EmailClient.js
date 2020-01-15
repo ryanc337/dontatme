@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { simpleParser } from 'mailparser';
 import { getRawEmail, deleteEmail, updateEmailIsRead } from '../../api/index';
 import EmailLoading from './EmailLoading';
 import EmailEmpty from './EmailEmpty';
@@ -59,10 +58,9 @@ const EmailClient = ({
   useEffect(() => {
     const getParsedEmail = async () => {
       const rawEmail = await getRawEmail(address, focusId);
-      const parsedEmail = await simpleParser(rawEmail);
       setFetchedEmails((prevState) => ({
         ...prevState,
-        [focusId]: parsedEmail,
+        [focusId]: rawEmail,
       }));
     };
 
