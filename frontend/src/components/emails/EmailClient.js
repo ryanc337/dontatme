@@ -22,8 +22,7 @@ const EmailClient = ({
     if (emails.length === 1) {
       setFocusId(null);
     } else {
-      const findIndexOfEmailToFocus = (email) => email.id === id;
-      const indexToFocus = emails.findIndex(findIndexOfEmailToFocus);
+      const indexToFocus = emails.findIndex((email) => email.id === id);
       return emails[indexToFocus + 1] ? emails[indexToFocus + 1].id : emails[0].id
     }
   }
