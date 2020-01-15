@@ -80,9 +80,7 @@ const EmailClient = ({
     const openEmail = async () => {
       setIsLoading(true)
       try {
-        if (!fetchedEmails.hasOwnProperty(focusId)) {
-          await getParsedEmail();
-        }
+        await getParsedEmail();
         readEmail(address, focusId);
       } catch (error) {
         setAlert({
@@ -95,7 +93,7 @@ const EmailClient = ({
       }
     };
 
-    if (focusId) {
+    if (focusId && !fetchedEmails[focusId]) {
       openEmail();
     } 
 
