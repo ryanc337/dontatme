@@ -10,7 +10,7 @@ addresses = Address.all
   address = addresses.sample
   address.emails.create(
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-    from: "[{\"address\":\"teddy.ph.leung@gmail.com\",\"name\":\"Teddy Leung\"}]",
+    from: "[{\"address\":\"#{Faker::Internet.safe_email}\",\"name\":\"#{Faker::Name.name}\"}]",
     subject: 'Testing Testing',
     sent_at: '2020-01-08T17:43:23.000Z',
     has_attachments: true,
