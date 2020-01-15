@@ -1,8 +1,8 @@
 import React from 'react';
 
-const EmailListHeader = () => (
+const EmailListHeader = ({ address }) => (
   <div className="email-list-header">
-    <h3 className="heading">Recent</h3>
+    <input className="email-list-header__address-id" value={address+'@dontatme.ca'} readOnly/>
   </div>
 );
 
