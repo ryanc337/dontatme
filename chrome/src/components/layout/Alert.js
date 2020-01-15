@@ -1,8 +1,8 @@
 import React from 'react';
-import { ReactComponent as SuccessIcon } from '../../images/flashSymbol_success.svg';
-import { ReactComponent as WarningIcon } from '../../images/flashSymbol_warning.svg';
-import { ReactComponent as ErrorIcon } from '../../images/flashSymbol_error.svg';
-import { ReactComponent as InformatonIcon } from '../../images/flashSymbol_information.svg';
+import { ReactComponent as SuccessIcon } from '../../assets/flashSymbol_success.svg';
+import { ReactComponent as WarningIcon } from '../../assets/flashSymbol_warning.svg';
+import { ReactComponent as ErrorIcon } from '../../assets/flashSymbol_error.svg';
+import { ReactComponent as InformatonIcon } from '../../assets/flashSymbol_information.svg';
 
 const Alert = ({ message, color, closeAlert }) => {
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
-import { ReactComponent as Paperclip } from '../../images/paperclip.svg';
+import { ReactComponent as Paperclip } from '../../assets/paperclip.svg';
+import { ReactComponent as LogoIcon } from '../../assets/dam-icon.svg';
+import { WELCOME_ADDRESS } from '../../lib/constants';
 
 const EmailListItem = ({
   email, setFocusPanel, setFocusId, focusId, iconColors
@@ -17,9 +19,6 @@ const EmailListItem = ({
 
   const sender = JSON.parse(from)[0];
   const senderName = sender.name;
-  const style = {
-    backgroundColor: `${iconColors[sender.address]}`
-  }
 
   const className = () => {
     let classNameString = 'email-list-item';
@@ -40,7 +39,11 @@ const EmailListItem = ({
       onClick={() => handleClick(email.id)}
     >
       <div className="email-list-item__initial-container">
-        <div className="initial-circle" style={style}>{senderName[0].toUpperCase()}</div>
+        {sender.address === WELCOME_ADDRESS ? (
+          <LogoIcon />
+        ) : (
+          <div className="initial-circle" style={{backgroundColor: iconColors[sender.address]}}>{senderName[0].toUpperCase()}</div>
+        )}
       </div>
       <div>
         <div className="email-list-item__sender-data">
