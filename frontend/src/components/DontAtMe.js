@@ -13,6 +13,8 @@ const DontAtMe = () => {
   const [address, setAddress] = useState(id || '');
   const [allEmails, setAllEmails] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [focusId, setFocusId] = useState(null);
+
   const [alert, setAlert] = useState({
     show: false,
     color: 'red',
@@ -52,7 +54,7 @@ const DontAtMe = () => {
       const subscriptionListeners = {
         received(data) {
           const jsonEmail = JSON.parse(data.email);
-          setAllEmails((prevState) => [...prevState, jsonEmail]);
+          setAllEmails((prevState) => [jsonEmail, ...prevState]);
         },
       };
 
@@ -64,6 +66,9 @@ const DontAtMe = () => {
     const fetchEmails = async (idParams) => {
       const fetchedEmails = await getEmails(idParams);
       setAllEmails(fetchedEmails.emails);
+      if (fetchedEmails.emails.length > 0) {
+        setFocusId(fetchedEmails.emails[0].id);
+      }
     };
 
     const fetchAddress = async () => {
@@ -97,7 +102,11 @@ const DontAtMe = () => {
 
   return (
     <div className="DontAtMe">
-      {alert.show && <Alert alert={alert} closeAlert={closeAlert} />}
+      {alert.show && <Alert 
+      message={alert.message} 
+      closeAlert={closeAlert}
+      color={alert.color} 
+      />}
       <Header />
       <Hero address={address} />
       <EmailClient
@@ -108,6 +117,8 @@ const DontAtMe = () => {
         setIsLoading={setIsLoading}
         isLoading={isLoading}
         iconColors={iconColors}
+        focusId={focusId}
+        setFocusId={setFocusId}
       />
       <div className='DontAtMe__wave'></div>
     </div>

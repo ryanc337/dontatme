@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { simpleParser } from 'mailparser';
 import { getRawEmail, deleteEmail, updateEmailIsRead } from '../../api/index';
 import EmailLoading from './EmailLoading';
 import EmailEmpty from './EmailEmpty';
@@ -7,11 +6,27 @@ import EmailList from './EmailList';
 import EmailItem from './EmailItem';
 
 const EmailClient = ({
-  allEmails, address, setAlert, setAllEmails, setIsLoading, isLoading, iconColors
+  allEmails, 
+  address, 
+  setAlert, 
+  setAllEmails, 
+  setIsLoading, 
+  isLoading, 
+  focusId, 
+  setFocusId,
+  iconColors
 }) => {
   const [focusPanel, setFocusPanel] = useState('list');
-  const [focusId, setFocusId] = useState(null);
   const [fetchedEmails, setFetchedEmails] = useState({});
+
+  const getNextEmailIndex = (emails, prevFocusId) => {
+    const oldIndex = emails.findIndex((email) => email.id === prevFocusId);
+    if (emails.length === 1) {
+      return null;
+    } else {
+      return emails[oldIndex + 1] ? emails[oldIndex + 1].id : emails[0].id
+    }
+  }
 
   const deleteEmailWithId = async () => {
     try {
@@ -21,15 +36,17 @@ const EmailClient = ({
 
       const deletedEmail = await deleteEmail(address, prevFocusId);
 
-      setFocusId(null);
-
       if (deletedEmail) {
+        const nextEmailId = getNextEmailIndex(allEmails, prevFocusId);
+
         setFetchedEmails((prevState) => {
           const { prevFocusId, ...rest } = prevState;
           return rest;
         });
 
         setAllEmails((prevState) => prevState.filter((email) => email.id !== prevFocusId));
+
+        setFocusId(nextEmailId);
       }
     } catch (error) {
       setAlert({
@@ -45,10 +62,9 @@ const EmailClient = ({
   useEffect(() => {
     const getParsedEmail = async () => {
       const rawEmail = await getRawEmail(address, focusId);
-      const parsedEmail = await simpleParser(rawEmail);
       setFetchedEmails((prevState) => ({
         ...prevState,
-        [focusId]: parsedEmail,
+        [focusId]: rawEmail,
       }));
     };
 
@@ -62,7 +78,7 @@ const EmailClient = ({
     };
 
     const openEmail = async () => {
-      setIsLoading(true);
+      setIsLoading(true)
       try {
         await getParsedEmail();
         readEmail(address, focusId);
@@ -79,11 +95,16 @@ const EmailClient = ({
 
     if (focusId) {
       openEmail();
-    }
+    } 
+
   }, [address, focusId]);
 
-  const getFrom = (allEmails, id) => {
-    const email = allEmails.find((email) => email.id === id);
+  const focusedEmail = () => {
+    return allEmails.find((email) => email.id === focusId)
+  }
+
+  const getFrom = () => {
+    const email = focusedEmail();
     const from = JSON.parse(email.from);
     return from[0];
   };
@@ -99,7 +120,7 @@ const EmailClient = ({
         iconColors={iconColors}
       />
 
-      {fetchedEmails[focusId] ? (
+      {fetchedEmails[focusId] && focusedEmail() ? (
         <EmailItem
           from={getFrom(allEmails, focusId)}
           email={fetchedEmails[focusId]}
