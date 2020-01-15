@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as Loader } from '../../images/loader.svg';
+import { ReactComponent as Loader } from '../../assets/loader.svg';
 
 const EmailLoading = () => (
   <div className="email-loading">

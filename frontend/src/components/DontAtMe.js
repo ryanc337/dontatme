@@ -7,6 +7,7 @@ import EmailClient from './emails/EmailClient';
 import Hero from './landing/Hero';
 import Header from './landing/Header';
 import getColor from '../lib/getColor';
+import { WELCOME_ADDRESS } from '../lib/constants';
 
 const DontAtMe = () => {
   const { id } = useParams();
@@ -27,7 +28,7 @@ const DontAtMe = () => {
     const updateColors = allEmails.reduce((newColors, email) => {
       const emailAddress = JSON.parse(email.from)[0].address;
       
-      if (newColors[emailAddress]) {
+      if (emailAddress === WELCOME_ADDRESS || newColors[emailAddress]) {
         return newColors;
       } else {
         const color = getColor(Object.keys(newColors).length);

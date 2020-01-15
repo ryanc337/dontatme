@@ -3,10 +3,11 @@ import ActionCable from 'actioncable';
 import { getAddress, getEmails } from '../api/index';
 import Alert from './layout/Alert';
 import EmailClient from './emails/EmailClient';
-import getColor from '../vendor/getColor';
+import getColor from '../lib/getColor';
+import { WELCOME_ADDRESS } from '../lib/constants';
 
 const DontAtMe = ({ addressId }) => {
-  const [address, setAddress] = useState(addressId|| '');
+  const [address, setAddress] = useState(addressId || '');
   const [allEmails, setAllEmails] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [focusId, setFocusId] = useState(null);
@@ -23,7 +24,7 @@ const DontAtMe = ({ addressId }) => {
     const updateColors = allEmails.reduce((newColors, email) => {
       const emailAddress = JSON.parse(email.from)[0].address;
       
-      if (newColors[emailAddress]) {
+      if (emailAddress === WELCOME_ADDRESS || newColors[emailAddress]) {
         return newColors;
       } else {
         const color = getColor(Object.keys(newColors).length);
