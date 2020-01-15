@@ -60,7 +60,7 @@ const EmailClient = ({
   };
 
   useEffect(() => {
-      const getParsedEmail = async () => {
+    const getParsedEmail = async () => {
       const rawEmail = await getRawEmail(address, focusId);
       setFetchedEmails((prevState) => ({
         ...prevState,
@@ -95,7 +95,7 @@ const EmailClient = ({
 
     if (focusId && !fetchedEmails[focusId]) {
       openEmail();
-    } 
+    }
 
   }, [address, focusId]);
 
