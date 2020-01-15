@@ -93,9 +93,9 @@ const EmailClient = ({
       }
     };
 
-    if (focusId) {
+    if (focusId && !fetchedEmails[focusId]) {
       openEmail();
-    } 
+    }
 
   }, [address, focusId]);
 

@@ -9,7 +9,7 @@ const EmailItemHeader = ({ setFocusPanel, deleteEmailWithId, from, iconColors })
     {from.address === WELCOME_ADDRESS ? (
       <LogoIcon />
     ) : (      
-      <div className="initial-circle" style={{backgroundColor: iconColors[from.address]}}>{from.name[0]}</div>
+      <div className="initial-circle" style={{backgroundColor: iconColors[from.address]}}>{from.name[0].toUpperCase()}</div>
     )}
     <div className="email-item-header__from heading">{from.name}</div>
     <div className="email-item-header__control-items">

@@ -42,7 +42,7 @@ const EmailListItem = ({
         {sender.address === WELCOME_ADDRESS ? (
           <LogoIcon />
         ) : (
-          <div className="initial-circle" style={{backgroundColor: iconColors[sender.address]}}>{senderName[0]}</div>
+          <div className="initial-circle" style={{backgroundColor: iconColors[sender.address]}}>{senderName[0].toUpperCase()}</div>
         )}
       </div>
       <div>
