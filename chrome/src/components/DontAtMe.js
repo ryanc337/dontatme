@@ -57,6 +57,7 @@ const DontAtMe = ({ addressId }) => {
       connection.subscriptions.create(subscriptionParams, subscriptionListeners);
     }
   }, [address]);
+
   /* global chrome */ 
   useEffect(() => {
     const fetchEmails = async (idParams) => {
@@ -100,9 +101,9 @@ const DontAtMe = ({ addressId }) => {
   return (
     <div className="DontAtMe">
       {alert.show && <Alert 
-      message={alert.message} 
-      closeAlert={closeAlert}
-      color={alert.color} 
+        message={alert.message} 
+        closeAlert={closeAlert}
+        color={alert.color} 
       />}
 
       <EmailClient
@@ -116,7 +117,6 @@ const DontAtMe = ({ addressId }) => {
         focusId={focusId}
         setFocusId={setFocusId}
       />
-
     </div>
   );
 };

@@ -1,13 +1,11 @@
-// Deleted header, hero, and wave from DontAtMe component
+// TODO: Automate chrome conversion
+// Delete header, hero, and wave from DontAtMe component
 // Delete DontAtMe css
-// Set body height 600px and set width 800px
+// Set body height 580px and width 780px
 // Set root, DontAtMe, email-client height and width to 100%
-// removed email-client border-radius, margin, and box-shadow
-// added chrome-storage to fetchaddress and eslint ignore chrome
-
-//Added 580px and 780px to HTML
-//body has a height and width of 100%
-//updated vh to 100 of .email-list-item-container and .email
+// Remove email-client border-radius, margin, and box-shadow
+// Update vh units to 100vh in .email-list-item-container and .email
+// Add set chrome.storage.local to fetchaddress function and eslint ignore chrome
 
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Roboto:700&display=swap');
