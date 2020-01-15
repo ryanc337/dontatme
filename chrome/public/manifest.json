@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Don't@Me",
-  "description": "Protect your privacy. Use a burner.",
+  "description": "Protect your email. Use a burner.",
   "version": "0.0.1",
 
   "browser_action": {
@@ -10,7 +10,7 @@
     "default_title": "Don't@Me"
   },
   "icons": {
-    "16": "favicon.ico",
+    "16": "logo64.png",
     "48": "logo192.png",
     "128": "logo512.png"
   },
