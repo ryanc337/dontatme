@@ -4,7 +4,8 @@ import { ReactComponent as WarningIcon } from '../../images/flashSymbol_warning.
 import { ReactComponent as ErrorIcon } from '../../images/flashSymbol_error.svg';
 import { ReactComponent as InformatonIcon } from '../../images/flashSymbol_information.svg';
 
-const Flash = ({ message, color, closeAlert }) => {
+const Alert = ({ message, color, closeAlert }) => {
+
   const flashSpecs = {
     green: { title: 'success', Icon: SuccessIcon },
     yellow: { title: 'warning', Icon: WarningIcon },
@@ -28,4 +29,4 @@ const Flash = ({ message, color, closeAlert }) => {
   );
 };
 
-export default Flash;
+export default Alert;

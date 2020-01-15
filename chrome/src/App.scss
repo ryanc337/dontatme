@@ -1,3 +1,13 @@
+// TODO: Automate chrome conversion
+// Delete header, hero, and wave from DontAtMe component
+// Delete DontAtMe css
+// Set body height 580px and width 780px
+// Set root, DontAtMe, email-client height and width to 100%
+// Remove email-client border-radius, margin, and box-shadow
+// Update vh units to 100vh in .email-list-item-container and .email
+// Add set chrome.storage.local to fetchaddress function and eslint ignore chrome
+
+
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Roboto:700&display=swap');
 $font-color-main: #3C434F;
 $font-color-grey: #959BA1;
@@ -10,21 +20,25 @@ html {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
 *, *:before, *:after {
   -webkit-box-sizing: inherit;
   -moz-box-sizing: inherit;
   box-sizing: inherit;
 }
 
+html {
+  height: 580px;
+  width: 780px;
+}
+
 body {
-  width: 800px;
-  height: 600px;
-  margin: 0;
   font-family: 'Open Sans', sans-serif;
   background-color: #FAFAFD;
   color: $font-color-main;
   font-size: 16px;
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 a, a:visited {
@@ -37,6 +51,11 @@ a, a:visited {
   height: 100%;
 }
 
+.DontAtMe {
+  height: 100%;
+  width: 100%;
+}
+
 .email-client {
   background-color: $white;
   width: 100%;
@@ -44,6 +63,7 @@ a, a:visited {
   display: grid;
   grid-template-columns: 391px 1fr;
   position: relative;
+  z-index: 100;
 }
 
 .email-list {
@@ -220,6 +240,64 @@ a, a:visited {
   padding: 36px 36px 0 36px;
 }
 
+.logo {
+  width: 150px;
+}
+
+.hero {
+  &__tagline {
+    color: $white;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 70px;
+    font-weight: 700;
+    line-height: 90px;
+    margin: 36px 0;    
+  }
+
+  &__cta {
+    background-color: $white;
+    height: 62px;
+    width: 480px;
+    margin: 40px auto 64px auto;
+    border-radius: 100px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 4px;
+  }
+
+  &__cta-btn {
+    background-color: #FF3465;
+    color: $white;
+    border: none;
+    width: 110px;
+    height: 54px;
+    border-radius: 100px;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      background-color: #E91E4F;
+    }
+  }
+
+  &__cta-input {
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: $font-color-main;
+    text-align: center;
+    outline: none;
+  }
+} 
+
 .email-empty {
   background-color: #F9F9F9;
   border-top-right-radius: 5px;
@@ -247,6 +325,7 @@ a, a:visited {
   font-weight: 600;
   font-size: 18px;
 }
+
 
 .flash {
   font-size: 16px;
