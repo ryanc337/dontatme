@@ -8,7 +8,7 @@
 // Add set chrome.storage.local to fetchaddress function and eslint ignore chrome
 
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Roboto:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
 $font-color-main: #3C434F;
 $font-color-grey: #959BA1;
 $border: 1px solid #ECF0F0;
@@ -73,9 +73,43 @@ a, a:visited {
 .email-list-header {
   border-bottom: $border;
   height: 62px;
-  padding: 24px;
+  padding: 0 24px;
   display: grid;
   align-items: center;
+  justify-items: start;
+  grid-template-columns: auto auto;
+
+  &__address-id {
+    background-color: #F1F1F4;
+    height: 32px;
+    font-size: 14px;
+    font-weight: 600;
+    display: grid;
+    align-items: center;
+    border-radius: 100px;
+    width: 300px;
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+    color: $font-color-main;
+    outline: none;
+    text-align: center;
+  }
+
+  &__copy {
+    display: grid;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      g {
+        stroke: #FF3465;
+      }
+    }
+  
+    g {
+      stroke: #ff6b91;
+    }
+  }
 }
 
 .email-list-item-container {

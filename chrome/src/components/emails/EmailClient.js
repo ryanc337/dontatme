@@ -118,6 +118,7 @@ const EmailClient = ({
         focusPanel={focusPanel}
         focusId={focusId}
         iconColors={iconColors}
+        address={address}
       />
 
       {fetchedEmails[focusId] && focusedEmail() ? (

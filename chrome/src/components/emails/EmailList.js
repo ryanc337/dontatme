@@ -3,10 +3,10 @@ import EmailListItem from './EmailListItem';
 import EmailListHeader from './EmailListHeader';
 
 const EmailList = ({
-  allEmails, setFocusPanel, setFocusId, focusId, iconColors
+  allEmails, setFocusPanel, setFocusId, focusId, iconColors, address
 }) => (
   <div className="email-list">
-    <EmailListHeader />
+    <EmailListHeader address={address}/>
     <div className="email-list-item-container">
       {allEmails.map((email) => (
         <EmailListItem
