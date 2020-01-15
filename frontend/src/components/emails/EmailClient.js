@@ -7,11 +7,31 @@ import EmailList from './EmailList';
 import EmailItem from './EmailItem';
 
 const EmailClient = ({
-  allEmails, address, setAlert, setAllEmails, setIsLoading, isLoading,
+  allEmails, 
+  address, 
+  setAlert, 
+  setAllEmails, 
+  setIsLoading, 
+  isLoading, 
+  focusId, 
+  setFocusId, 
 }) => {
   const [focusPanel, setFocusPanel] = useState('list');
-  const [focusId, setFocusId] = useState(null);
   const [fetchedEmails, setFetchedEmails] = useState({});
+
+  const focusNextEmail = (emails, id) => {
+    if (emails.length === 1) {
+      setFocusId(null);
+    } else {
+      const findIndexOfEmailToFocus = (email) => email.id === id;
+      const indexToFocus = emails.findIndex(findIndexOfEmailToFocus);
+      if (emails[indexToFocus + 1]) {
+        return emails[indexToFocus + 1].id
+      } else {
+        return emails[0].id
+      }
+    }
+  }
 
   const deleteEmailWithId = async () => {
     try {
@@ -21,7 +41,7 @@ const EmailClient = ({
 
       const deletedEmail = await deleteEmail(address, prevFocusId);
 
-      setFocusId(null);
+      setFocusId(() => focusNextEmail(allEmails, prevFocusId));
 
       if (deletedEmail) {
         setFetchedEmails((prevState) => {
@@ -38,7 +58,7 @@ const EmailClient = ({
         message: 'Unable to delete email. Please try again.',
       });
     } finally {
-      setIsLoading(false);
+      
     }
   };
 
@@ -62,8 +82,8 @@ const EmailClient = ({
     };
 
     const openEmail = async () => {
-      setIsLoading(true);
       try {
+        setIsLoading(true)
         await getParsedEmail();
         readEmail(address, focusId);
       } catch (error) {
@@ -79,7 +99,8 @@ const EmailClient = ({
 
     if (focusId) {
       openEmail();
-    }
+    } 
+
   }, [address, focusId]);
 
   const getFrom = (allEmails, id) => {

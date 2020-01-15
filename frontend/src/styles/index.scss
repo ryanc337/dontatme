@@ -270,6 +270,7 @@ a, a:visited {
     font-size: 18px;
     text-transform: uppercase;
     cursor: pointer;
+    outline: none;
 
     &:hover {
       background-color: #E91E4F;
@@ -283,6 +284,7 @@ a, a:visited {
     font-size: 18px;
     color: $font-color-main;
     text-align: center;
+    outline: none;
   }
 }
 

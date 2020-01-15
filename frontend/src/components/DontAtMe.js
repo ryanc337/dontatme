@@ -12,6 +12,8 @@ const DontAtMe = (props) => {
   const [address, setAddress] = useState(id || '');
   const [allEmails, setAllEmails] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [focusId, setFocusId] = useState(null);
+
   const [alert, setAlert] = useState({
     show: false,
     color: 'red',
@@ -31,7 +33,7 @@ const DontAtMe = (props) => {
         id: address,
         channel: 'EmailsChannel',
       };
-      //new emails has to be prepended here
+
       const subscriptionListeners = {
         received(data) {
           const jsonEmail = JSON.parse(data.email);
@@ -42,11 +44,12 @@ const DontAtMe = (props) => {
       connection.subscriptions.create(subscriptionParams, subscriptionListeners);
     }
   }, [address]);
-// new email is already ordered by rails
+
   useEffect(() => {
     const fetchEmails = async (idParams) => {
       const fetchedEmails = await getEmails(idParams);
       setAllEmails(fetchedEmails.emails);
+      setFocusId(fetchedEmails.emails[0].id);
     };
 
     const fetchAddress = async () => {
@@ -94,6 +97,8 @@ const DontAtMe = (props) => {
         setAlert={setAlert}
         setIsLoading={setIsLoading}
         isLoading={isLoading}
+        focusId={focusId}
+        setFocusId={setFocusId}
       />
       <div className='DontAtMe__wave'></div>
     </div>
