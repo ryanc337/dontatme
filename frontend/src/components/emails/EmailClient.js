@@ -25,11 +25,7 @@ const EmailClient = ({
     } else {
       const findIndexOfEmailToFocus = (email) => email.id === id;
       const indexToFocus = emails.findIndex(findIndexOfEmailToFocus);
-      if (emails[indexToFocus + 1]) {
-        return emails[indexToFocus + 1].id
-      } else {
-        return emails[0].id
-      }
+      return emails[indexToFocus + 1] ? emails[indexToFocus + 1].id : emails[0].id
     }
   }
 
@@ -57,8 +53,6 @@ const EmailClient = ({
         show: true,
         message: 'Unable to delete email. Please try again.',
       });
-    } finally {
-      
     }
   };
 
