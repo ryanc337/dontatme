@@ -4,7 +4,7 @@
 // Set body height 580px and width 780px
 // Set root, DontAtMe, email-client height and width to 100%
 // Remove email-client border-radius, margin, and box-shadow
-// Update vh units to 100vh in .email-list-item-container and .email
+// Update vh units to 580px in .email-list-item-container and .email
 // Add set chrome.storage.local to fetchaddress function and eslint ignore chrome
 
 
@@ -61,7 +61,7 @@ a, a:visited {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 391px 1fr;
+  grid-template-columns: 390px 390px;
   position: relative;
   z-index: 100;
 }
@@ -113,7 +113,7 @@ a, a:visited {
 }
 
 .email-list-item-container {
-  height: calc(100vh - 62px);
+  height: calc(580px - 62px);
   overflow-y: auto;
   border-bottom-left-radius: 5px;
 }
@@ -198,9 +198,9 @@ a, a:visited {
 }
 
 .email {
-  height: calc(100vh - 62px);
-  overflow-y: auto;
-  padding: 16px 36px 48px 36px;
+  height: calc(580px - 62px);
+  overflow: auto;
+  padding: 16px 0 48px 0;
 }
 
 .email-item-header {
@@ -240,6 +240,10 @@ a, a:visited {
       display: none;
     }
   }
+}
+
+.email-attachments-container {
+  padding: 0 24px;
 }
 
 .email-attachments {

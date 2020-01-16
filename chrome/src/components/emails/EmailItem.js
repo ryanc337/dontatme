@@ -7,7 +7,9 @@ const EmailItem = ({
   setFocusPanel, email, deleteEmailWithId, from, iconColors
 }) => {
   const { attachments, html } = email;
-  const cleanedHtml = sanitizeHTML(html);
+  // TODO: Sanitize HTML
+  // const cleanedHtml = sanitizeHTML(html);
+  const cleanedHtml = html;
 
   return (
     <div className="email-item">

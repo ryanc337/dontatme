@@ -7,7 +7,9 @@ const Email = ({ attachments, html }) => (
     <EmailBody
       html={html}
     />
-    {attachments && <EmailAttachments attachments={attachments} />}
+    <div className="email-attachments-container">
+      {attachments[0] && <EmailAttachments attachments={attachments} />}
+    </div>
   </div>
 );
 

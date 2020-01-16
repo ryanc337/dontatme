@@ -156,7 +156,7 @@ a, a:visited {
 .email {
   height: calc(90vh - 62px);
   overflow-y: auto;
-  padding: 16px 36px 48px 36px;
+  padding: 16px 0 48px 0;
 }
 
 .email-item-header {
@@ -196,6 +196,10 @@ a, a:visited {
       display: none;
     }
   }
+}
+
+.email-attachments-container {
+  padding: 0 24px;
 }
 
 .email-attachments {
