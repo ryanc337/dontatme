@@ -2,9 +2,7 @@ import React from 'react';
 import EmailBody from './EmailBody';
 import EmailAttachments from './EmailAttachments';
 
-const Email = ({ attachments, html }) => {
-  
-  return (
+const Email = ({ attachments, html }) => (
   <div className="email">
     <EmailBody
       html={html}
@@ -13,8 +11,6 @@ const Email = ({ attachments, html }) => {
       {attachments[0] && <EmailAttachments attachments={attachments} />}
     </div>
   </div>
-  )
-}
-
+);
 
 export default Email;
