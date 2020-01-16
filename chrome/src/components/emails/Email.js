@@ -2,13 +2,18 @@ import React from 'react';
 import EmailBody from './EmailBody';
 import EmailAttachments from './EmailAttachments';
 
-const Email = ({ attachments, html }) => (
+const Email = ({ attachments, html }) => {
+  
+  return (
   <div className="email">
     <EmailBody
       html={html}
     />
-    {attachments && <EmailAttachments attachments={attachments} />}
+    <div className="email-attachments-container">
+      {attachments[0] && <EmailAttachments attachments={attachments} />}
+    </div>
   </div>
-);
+  )
+}
 
 export default Email;

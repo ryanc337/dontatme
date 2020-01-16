@@ -2,7 +2,7 @@ import React from 'react';
 
 const EmailBody = ({ html }) => (
   <article className="email-body">
-    <p dangerouslySetInnerHTML={{
+    <div dangerouslySetInnerHTML={{
       __html: html,
     }}
     />

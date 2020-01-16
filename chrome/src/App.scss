@@ -61,7 +61,7 @@ a, a:visited {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 391px 1fr;
+  grid-template-columns: 390px 390px;
   position: relative;
   z-index: 100;
 }
@@ -199,8 +199,11 @@ a, a:visited {
 
 .email {
   height: calc(100vh - 62px);
-  overflow-y: auto;
   padding: 16px 0 48px 0;
+}
+
+.email-body {
+  overflow: auto;
 }
 
 .email-item-header {
@@ -240,6 +243,10 @@ a, a:visited {
       display: none;
     }
   }
+}
+
+.email-attachments-container {
+  padding: 0 24px;
 }
 
 .email-attachments {
