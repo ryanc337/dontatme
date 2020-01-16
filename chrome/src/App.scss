@@ -200,7 +200,7 @@ a, a:visited {
 .email {
   height: calc(100vh - 62px);
   overflow-y: auto;
-  padding: 16px 36px 48px 36px;
+  padding: 16px 0 48px 0;
 }
 
 .email-item-header {
@@ -246,7 +246,7 @@ a, a:visited {
   margin-top: 48px;
   border-top: 1px solid #ECF0F0;
   border-bottom: 1px solid #ECF0F0;
-  padding: 12px 0;
+  padding: 12px 24px;
 }
 
 .email-attachment {
