@@ -58,7 +58,7 @@ const EmailListItem = ({
       <div className="email-list-item__attachment">
         {has_attachments && <Paperclip />}
       </div>
-      <div className="email-list-item__body-preview">{`${body}...`}</div>
+      <div className="email-list-item__body-preview">{`${body}`}</div>
     </div>
   );
 };

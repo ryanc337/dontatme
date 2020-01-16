@@ -75,6 +75,7 @@ const DontAtMe = () => {
     const fetchAddress = async () => {
       const fetchedAddress = await getAddress();
       setAddress(fetchedAddress.address);
+      fetchEmails(fetchedAddress.address);
     };
 
     const tryFetchData = async (fn, errorMsg) => {

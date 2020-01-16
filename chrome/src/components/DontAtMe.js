@@ -73,6 +73,7 @@ const DontAtMe = ({ addressId }) => {
       const fetchedAddress = await getAddress();
       chrome.storage.local.set({ address: fetchedAddress.address });
       setAddress(fetchedAddress.address);
+      fetchEmails(fetchedAddress.address);
     };
 
     const tryFetchData = async (fn, errorMsg) => {
